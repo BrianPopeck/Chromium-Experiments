@@ -31,7 +31,7 @@ make
 sudo make install
 ```
 
-After that, using g3log in a project should be as easy as `#include`ing the right files and linking with `-lg3logger`. I'm not sure this is the proper way to do things since there was no mention of this in the repo, but it worked for this project.
+After that, using g3log in a project should be as easy as `#include`ing the right files and linking with `-lg3log. I'm not sure this is the proper way to do things since there was no mention of this in the repo, but it worked for this project.
 
 ## Running
 To run an experiment, it's as easy as:

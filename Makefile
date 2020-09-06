@@ -30,10 +30,10 @@ logs/:
 	mkdir logs/
 
 bin/libintercept-old.so: bin/chrome_interpose.o bin/cpu_utils.o bin/experimenter-old.o bin/ipc.o
-	clang++ -g -shared -fPIC -ldl -lg3logger -Wall $^ -o $@
+	clang++ -g -shared -fPIC -ldl -lg3log -Wall $^ -o $@
 
 bin/libintercept-new.so: bin/chrome_interpose.o bin/cpu_utils.o bin/experimenter-new.o bin/ipc.o
-	clang++ -g -shared -fPIC -ldl -lg3logger -Wall $^ -o $@
+	clang++ -g -shared -fPIC -ldl -lg3log -Wall $^ -o $@
 
 bin/chrome_interpose.o: src/chrome_interpose.cc
 	clang++ -c -g -Wall -fPIC $^ -o $@

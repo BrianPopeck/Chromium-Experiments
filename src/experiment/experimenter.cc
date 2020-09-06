@@ -196,7 +196,7 @@ void experiment_init(const char *exec_name) {
     std::string logdir,logfile;
     size_t split_spot = env_log_str.find_last_of("/");
     if (split_spot == std::string::npos) {
-        logdir = "/home/vagrant/research/interpose/logs/";
+        logdir = "/home/rock/chrome_research/interpose/logs/";
         logfile = env_log_str;
     } else {
         logdir = env_log_str.substr(0,split_spot);

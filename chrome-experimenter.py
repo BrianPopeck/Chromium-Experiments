@@ -56,7 +56,7 @@ interceptLibName = "libintercept.so"
 mFilename= "/tmp/chrome_exp_mmap"
 mmapSizeBytes = expInt.getSize()
 expectedProcesses = 2 # normally browser proc and at least one renderer
-chromeBin = "/home/vagrant/chromium/src/out/x64Linux/chrome"
+chromeBin = "/home/rock/chrome78/chrome"
 
 expDirName = f"./logs/exp-{genUniqueId()}" # give experiment it's own unique dir
 while os.path.exists(expDirName):
