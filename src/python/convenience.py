@@ -14,6 +14,9 @@ def findProcess(procName):
     p = subprocess.Popen(['pgrep',procName],stdout=subprocess.PIPE)
     output, _ = p.communicate()
     output = str(output,'UTF-8').rstrip().split("\n")
+    if len(output) == 1 and output[0] == '':
+        return []
+    printv('findProcess found {}'.format(output), True)
     return output
 
 def procIsAlive(procName):
