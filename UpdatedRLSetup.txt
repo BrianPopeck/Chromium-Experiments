@@ -1,0 +1,27 @@
+Policy Gradient with Delayed Reward (ideally offline learning)
+
+States:
+    Global:
+        <running page load time, average power>
+    Per function:
+        <status (yet to run/running/finished running), cpu mask>
+
+Actions:
+    Either per time step,
+        For every function that has status yet to run/running, either change cpu mask or keep it the same
+    Or at the beginning of each function,
+        Set cpu mask
+
+Detecting State Transitions:
+    Global:
+        page load time tracked via timer, average power tracked via watts-up (take average across gaps in measurements)
+    Per function,
+        cpu mask tracked by framework already, can modify interposition component to update status from yet to run -> running and running -> finished running
+
+Rewards:
+    (11W - average power) / 11W     if page load time less than or equal to threshold
+    -1                              if page load time greater than threshold
+    
+Issues:
+    - latency with JIT cpu mask (the runtime of each function will be extended by the time taken for agent to make decision)
+    - synchronization with actions per time step - communication delay between Python and C++ frameworks from mmap file (e.g. agent updates mask, but Chrome uses out of date mask when function starts because it did not receive the message in time)

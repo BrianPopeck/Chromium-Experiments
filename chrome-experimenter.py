@@ -66,6 +66,7 @@ filePrefix = f"{expDirName}/PyChrome" # label with tool that generated the data
 chromeStdLog = f'{filePrefix}-chrome.log'
 chromeErrLog = f'{filePrefix}-chrome-err.log'
 pageLoadLog = f'{expDirName}/pageloads.log'
+powerLog = f'{expDirName}/power.log'
 
 # Environment variables default values
 os.environ['TIMING'] = "external" # don't use internal timer (otherwise the exp lib will kill chrome)
@@ -186,7 +187,8 @@ else:
 # Open mmap and logs
 with open(mFilename, "r+b")  as mfile, \
      open(chromeStdLog,'w') as log, \
-     open(chromeErrLog,'w') as errlog:
+     open(chromeErrLog,'w') as errlog, \
+     open(powerLog, 'w') as powerlog:
 
     # Create mmap and experiment interface
     printv(f"Creating mmap from file {mFilename} ({mmapSizeBytes} bytes)",args.verbose)
@@ -195,6 +197,12 @@ with open(mFilename, "r+b")  as mfile, \
     expInt.initIpc(mm)
     if args.just_mmap:
         sys.exit(0)
+
+    # Start logging power levels
+    printv("Setting up power monitoring...",args.verbose)
+    wattsup_process = subprocess.Popen(shlex.split(f"wattsup -t /dev/ttyUSB0 watts"), stdout=powerlog)
+    time.sleep(5)   # wait for wattsup to start taking measurements
+    printv("Finished setting up power monitoring",args.verbose)
 
     # Start the chrome process
     printv(chromeCmd,args.verbose)
