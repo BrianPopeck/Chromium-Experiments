@@ -55,7 +55,8 @@ def demo():
     if ax is not None:
         ax.legend(tids)
         ax.set_title("thread occupancy across execution".title())
-    plt.show()
+    # plt.show()
+    plt.savefig("occupancy.png")
 
 if __name__ == "__main__":
     demo()

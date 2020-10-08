@@ -4,64 +4,65 @@ from math import sqrt
 import statistics
 
 def main(argv):
-    pageloads = {'wikipedia': [], 'facebook': [], 'amazon': []}
+    # pageloads = {'wikipedia': [], 'facebook': [], 'amazon': []}
+    pageloads = {}
     
     for root, dirs, files in os.walk('logs'):
         for filename in files:
                 if filename == 'pageloads.log':
                     with open(os.path.join(root, filename), 'r') as f:
                         lines = f.readlines()
-                        for line in lines:
-                                split = [text.rstrip(',')  for text in line.split()]
-                                print(split)
-                                if split[0] == 'Pageload':
-                                    continue
+                        for i, line in enumerate(lines):
+                                split = [text.rstrip(',')  for text in line.split(' ')]
+                                if split[0] == 'Pageload' or i < 2:
+                                    continue    # skip header line
                                 if len(split) >= 4:
                                     load_time = split[2]
+                                    # print('{}'.format(load_time))
                                     website = split[3]
                                 else:
                                     continue
 
-                                if website == 'http://www.wikipedia.org':
-                                    print('adding to wiki')
-                                    # pageloads['wikipedia'] += load_time
-                                    pageloads['wikipedia'].append(load_time)
-                                elif website == 'http://www.facebook.com':
-                                    # pageloads['facebook'] += load_time
-                                    pageloads['facebook'].append(load_time)
-                                elif website == 'http://www.amazon.com':
-                                    # pageloads['amazon'] += load_time
-                                    pageloads['amazon'].append(load_time)
+                                # if website == 'http://www.wikipedia.org':
+                                #     pageloads['wikipedia'].append(load_time)
+                                # elif website == 'http://www.facebook.com':
+                                #     pageloads['facebook'].append(load_time)
+                                # elif website == 'http://www.amazon.com':
+                                #     pageloads['amazon'].append(load_time)
+                                # else:
+                                #     print('ERROR: website {} not recognized'.format(website))
+                                if website not in pageloads:
+                                    pageloads[website] = [load_time]
                                 else:
-                                    print('ERROR: website {} not recognized'.format(website))
-
-    print(pageloads['wikipedia'])
+                                    pageloads[website].append(load_time)
 
     for page in pageloads:
+        # print(pageloads[page])
         pageloads[page] = [float(load) for load in pageloads[page]]
 
-    mean = {'wikipedia': None, 'facebook': None, 'amazon': None}
-    for page in pageloads:
-        print(page)
-        print(pageloads[page])
-        mean[page] = sum(pageloads[page]) / len(pageloads[page])
+    # print('N: {}'.format(len(pageloads['wikipedia'])))
 
-    variance = {'wikipedia': None, 'facebook': None, 'amazon': None}
+    mean = {}
     for page in pageloads:
-        # variance[page] = sum((x_i - mean[page])**2 for x_i in pageloads[page]) / len(pageloads[page])
-        variance[page] = statistics.variance(pageloads[page])
-        print(len(pageloads[page]))
+        # print(page)
+        # print(pageloads[page])
+        mean[page] = statistics.mean(pageloads[page])
 
-    stddev = {'wikipedia': None, 'facebook': None, 'amazon': None}
+    # variance = {'wikipedia': None, 'facebook': None, 'amazon': None}
+    # for page in pageloads:
+    #     variance[page] = statistics.variance(pageloads[page])
+    #     print(len(pageloads[page]))
+
+    stdev = {}
     for page in pageloads:
-        stddev[page] = sqrt(variance[page])
+        stdev[page] = statistics.stdev(pageloads[page])
     
-    for page in pageloads:
+    for page in sorted(pageloads):
         print('\nwebsite: {}'.format(page))
-        print(pageloads[page])
-        print('\nmean: {}'.format(mean[page]))
-        print('variance: {}'.format(variance[page]))
-        print('standard deviation: {}'.format(stddev[page]))
+        # print(pageloads[page])
+        print('mean: {0:.2f}s'.format(mean[page] / 1000))
+        # print('variance: {}'.format(variance[page]))
+        print('standard deviation: {0:.2f}s'.format(stdev[page] / 1000))
 
 
 

@@ -21,12 +21,24 @@ expInt = ipc.ExperimentInterface()
 
 # Create function sets
 print(ipc.paint)
-bigToAll = ipc.FunctionSet((0,4),(4,4),ipc.layout + ipc.paint + ipc.js)
-littleToAll = ipc.FunctionSet((4,0),(4,4),ipc.css + ipc.html)
+# bigToAll = ipc.FunctionSet((0,4),(4,4),ipc.layout + ipc.paint + ipc.js)
+# littleToAll = ipc.FunctionSet((4,0),(4,4),ipc.css + ipc.html)
+
+allLittle = ipc.FunctionSet((4,0), (4,2), ipc.layout + ipc.paint + ipc.js + ipc.css + ipc.html)
+functions = {"PumpPendingSpeculations","ResumeParsingAfterYield", "ParseSheet","UpdateStyleAndLayoutTree", "PerformLayout", "UpdateLifecyclePhasesInternal", "ExecuteScriptInMainWorld","ExecuteScriptInIsolatedWorld","CallFunction"}
+currentFunc = "CallFunction"
+speedUpOne = ipc.FunctionSet((0,2), (4,2), [currentFunc])
+print('Slowdown: {}'.format(list(functions - {currentFunc})))
+slowDownRest = ipc.FunctionSet((4,0), (4,2), list(functions - {currentFunc}))
+
+
 
 # Add sets to experiment and init
-expInt.addSet(bigToAll)
-expInt.addSet(littleToAll)
+# expInt.addSet(bigToAll)
+# expInt.addSet(littleToAll)
+# expInt.addSet(allLittle)
+expInt.addSet(speedUpOne)
+expInt.addSet(slowDownRest)
 
 # Arg parsing
 parser = argparse.ArgumentParser()
@@ -91,7 +103,17 @@ functions   = [
         "UpdateStyleAndLayoutTree","UpdateLifeCyclePhasesInternal","PerformLayout",
         "ExecuteScriptInMainWorld","ExecuteScriptInIsolatedWorld","CallFunction"
         ]
-sites       = ["amazon.com","wikipedia.org","facebook.com"]
+# sites       = ["amazon.com","wikipedia.org","facebook.com"]
+sites = ['http://tucunare.cs.pitt.edu:8080/amazon/www.amazon.com/',
+		'http://tucunare.cs.pitt.edu:8080/bbc/www.bbc.co.uk/', 
+		'http://tucunare.cs.pitt.edu:8080/cnn/www.cnn.com/', 
+		'http://tucunare.cs.pitt.edu:8080/craigslist/newyork.craigslist.org/', 
+		'http://tucunare.cs.pitt.edu:8080/ebay/www.ebay.com/',
+		'http://tucunare.cs.pitt.edu:8080/google/www.google.com/', 
+		'http://tucunare.cs.pitt.edu:8080/msn/www.msn.com/', 
+		'http://tucunare.cs.pitt.edu:8080/slashdot/slashdot.org/', 
+		'http://tucunare.cs.pitt.edu:8080/twitter/twitter.com/', 
+		'http://tucunare.cs.pitt.edu:8080/youtube/www.youtube.com/']
 coreConfigs = [(4,4),(2,2),(0,4),(4,0)] # (lil,big)
 littles     = [0,1,2,3]
 bigs        = [4,5,6,7]
