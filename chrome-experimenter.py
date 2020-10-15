@@ -26,7 +26,7 @@ print(ipc.paint)
 
 allLittle = ipc.FunctionSet((4,0), (4,2), ipc.layout + ipc.paint + ipc.js + ipc.css + ipc.html)
 functions = {"PumpPendingSpeculations","ResumeParsingAfterYield", "ParseSheet","UpdateStyleAndLayoutTree", "PerformLayout", "UpdateLifecyclePhasesInternal", "ExecuteScriptInMainWorld","ExecuteScriptInIsolatedWorld","CallFunction"}
-currentFunc = "CallFunction"
+currentFunc = "PerformLayout"
 speedUpOne = ipc.FunctionSet((0,2), (4,2), [currentFunc])
 print('Slowdown: {}'.format(list(functions - {currentFunc})))
 slowDownRest = ipc.FunctionSet((4,0), (4,2), list(functions - {currentFunc}))
@@ -36,9 +36,9 @@ slowDownRest = ipc.FunctionSet((4,0), (4,2), list(functions - {currentFunc}))
 # Add sets to experiment and init
 # expInt.addSet(bigToAll)
 # expInt.addSet(littleToAll)
-# expInt.addSet(allLittle)
-expInt.addSet(speedUpOne)
-expInt.addSet(slowDownRest)
+expInt.addSet(allLittle)
+# expInt.addSet(speedUpOne)
+# expInt.addSet(slowDownRest)
 
 # Arg parsing
 parser = argparse.ArgumentParser()
@@ -93,6 +93,8 @@ os.environ['LD_LIBRARY_PATH'] = f"/usr/local/lib:{os.environ['LD_LIBRARY_PATH'] 
 
 # Chromium default flag options
 chromeFlags = "--no-zygote --no-sandbox"
+# TODO: experimental - having flags match 'run-chrome.sh'
+# chromeFlags = "--aggressive-cache-discard --disable-cache --disable-application-cache --disable-offline-load-stale-cache --disk-cache-size=0"
 debugPort = 9222
 chromeFlags += f" --remote-debugging-port={debugPort}"
 url = ""
@@ -103,17 +105,28 @@ functions   = [
         "UpdateStyleAndLayoutTree","UpdateLifeCyclePhasesInternal","PerformLayout",
         "ExecuteScriptInMainWorld","ExecuteScriptInIsolatedWorld","CallFunction"
         ]
-# sites       = ["amazon.com","wikipedia.org","facebook.com"]
-sites = ['http://tucunare.cs.pitt.edu:8080/amazon/www.amazon.com/',
-		'http://tucunare.cs.pitt.edu:8080/bbc/www.bbc.co.uk/', 
-		'http://tucunare.cs.pitt.edu:8080/cnn/www.cnn.com/', 
-		'http://tucunare.cs.pitt.edu:8080/craigslist/newyork.craigslist.org/', 
-		'http://tucunare.cs.pitt.edu:8080/ebay/www.ebay.com/',
-		'http://tucunare.cs.pitt.edu:8080/google/www.google.com/', 
-		'http://tucunare.cs.pitt.edu:8080/msn/www.msn.com/', 
-		'http://tucunare.cs.pitt.edu:8080/slashdot/slashdot.org/', 
-		'http://tucunare.cs.pitt.edu:8080/twitter/twitter.com/', 
-		'http://tucunare.cs.pitt.edu:8080/youtube/www.youtube.com/']
+# sites = ['http://tucunare.cs.pitt.edu:8080/amazon/www.amazon.com/',
+# 		'http://tucunare.cs.pitt.edu:8080/bbc/www.bbc.co.uk/', 
+# 		'http://tucunare.cs.pitt.edu:8080/cnn/www.cnn.com/', 
+# 		'http://tucunare.cs.pitt.edu:8080/craigslist/newyork.craigslist.org/', 
+# 		'http://tucunare.cs.pitt.edu:8080/ebay/www.ebay.com/',
+# 		'http://tucunare.cs.pitt.edu:8080/google/www.google.com/', 
+# 		'http://tucunare.cs.pitt.edu:8080/msn/www.msn.com/', 
+# 		'http://tucunare.cs.pitt.edu:8080/slashdot/slashdot.org/', 
+# 		'http://tucunare.cs.pitt.edu:8080/twitter/twitter.com/', 
+# 		'http://tucunare.cs.pitt.edu:8080/youtube/www.youtube.com/']
+sites = ['tucunare.cs.pitt.edu:8080/amazon/www.amazon.com/index.html',
+		'tucunare.cs.pitt.edu:8080/bbc/www.bbc.co.uk/index.html', 
+		'tucunare.cs.pitt.edu:8080/cnn/www.cnn.com/index.html', 
+		'tucunare.cs.pitt.edu:8080/craigslist/newyork.craigslist.org/index.html', 
+		'tucunare.cs.pitt.edu:8080/ebay/www.ebay.com/index.html',
+        'tucunare.cs.pitt.edu:8080/espn/espn.go.com/index.html',
+		'tucunare.cs.pitt.edu:8080/google/www.google.com/index.html', 
+		'tucunare.cs.pitt.edu:8080/msn/www.msn.com/index.html', 
+		'tucunare.cs.pitt.edu:8080/slashdot/slashdot.org/index.html', 
+		'tucunare.cs.pitt.edu:8080/twitter/twitter.com/index.html', 
+		'tucunare.cs.pitt.edu:8080/youtube/www.youtube.com/watch07c3.html'
+        ]
 coreConfigs = [(4,4),(2,2),(0,4),(4,0)] # (lil,big)
 littles     = [0,1,2,3]
 bigs        = [4,5,6,7]
@@ -237,6 +250,7 @@ with open(mFilename, "r+b")  as mfile, \
             printv(f"Opening {errlog} for stderr",args.verbose)
             process = subprocess.Popen(chromeCmd,stdout=log,stderr=errlog)
         printv("Started chrome process",args.verbose)
+        printv("Chrome flags: {}".format(chromeFlags), args.verbose)
 
     except FileNotFoundError:
         printe("No file " + str(chromeCmd[0]) + " found")

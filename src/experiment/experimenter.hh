@@ -10,6 +10,8 @@ void experiment_mark_page_start();
 
 void experiment_mark_page_loaded();
 
+void experiment_pageload_started(long timestamp);
+
 void experiment_fentry(std::string func_name);
 
 void experiment_fexit(std::string func_name);

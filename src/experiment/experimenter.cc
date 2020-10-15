@@ -242,6 +242,10 @@ void experiment_mark_page_loaded() {
     }
 }
 
+void experiment_pageload_started(long timestamp) {
+    LOG(INFO) << "Website started loading at timestamp: " << timestamp;
+}
+
 void experiment_fentry(std::string func_name) {
     unsigned int tid = syscall(SYS_gettid);
 #ifdef RUNCHROME_MODE

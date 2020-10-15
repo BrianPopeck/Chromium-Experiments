@@ -76,8 +76,62 @@ namespace WTF {
     class String;
 };
 
-namespace blink {
+// namespace content {
 
+// /* Observing Start and End Times */
+// class WebContentsObserver {
+//     void DidStartLoading();
+//     void DidStopLoading();
+// };
+
+// typedef void (*start_loading_ptr)(WebContentsObserver*);
+
+// void WebContentsObserver::DidStartLoading() {
+
+//     // start_loading_ptr real_fcn = (start_loading_ptr)dlsym(RTLD_NEXT, "_ZN7content19WebContentsObserver15DidStartLoadingEv");
+//     start_loading_ptr real_fcn = (start_loading_ptr)dlsym(RTLD_NEXT, "THISISNOTAVALIDNAME");
+//     if (real_fcn == NULL) {
+//         printf("Error finding function 'DidStartLoading'\n");
+//         exit(1);
+//     }
+//     struct timespec start_time;
+//     clock_gettime(CLOCK_MONOTONIC, &start_time);
+//     printf("Website starting loading at timestamp %ld\n", start_time.tv_sec);
+//     experiment_pageload_started(start_time.tv_sec);
+//     exit(1);
+//     real_fcn(this);
+// }
+
+// } // namespace content
+
+
+
+namespace blink {
+    
+    /* Observing Start and End Times */
+    class WebContentsObserver {
+        void DidStartLoading();
+        void DidStopLoading();
+    };
+
+    typedef void (*start_loading_ptr)(WebContentsObserver*);
+
+    void WebContentsObserver::DidStartLoading() {
+
+        // start_loading_ptr real_fcn = (start_loading_ptr)dlsym(RTLD_NEXT, "_ZN7content19WebContentsObserver15DidStartLoadingEv");
+        start_loading_ptr real_fcn = (start_loading_ptr)dlsym(RTLD_NEXT, "_ZN5blink19WebLocalFrameClient15DidStartLoadingEv");
+        if (real_fcn == NULL) {
+            printf("Error finding function 'DidStartLoading'\n");
+            exit(1);
+        }
+        struct timespec start_time;
+        clock_gettime(CLOCK_MONOTONIC, &start_time);
+        printf("Website starting loading at timestamp %ld\n", start_time.tv_sec);
+        experiment_pageload_started(start_time.tv_sec);
+        exit(1);
+        real_fcn(this);
+    }
+    
     /* HTML Stage */
 
     class HTMLDocumentParser { // leaving this out for now, focusing on Web Performance API
