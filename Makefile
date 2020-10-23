@@ -16,7 +16,8 @@ run-gui: logs/ bin/libintercept-new.so
 
 run-pychrome: logs/ bin/libintercept-new.so
 	cp bin/libintercept-new.so bin/libintercept.so
-	./chrome-experimenter.py --verbose --plot-graphs
+	# ./chrome-experimenter.py --verbose --plot-graphs
+	./chrome-experimenter.py --verbose
 
 run-debug: logs/ bin/libintercept-new.so
 	cp bin/libintercept-new.so bin/libintercept.so

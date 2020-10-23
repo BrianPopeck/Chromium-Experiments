@@ -26,7 +26,7 @@ print(ipc.paint)
 
 allLittle = ipc.FunctionSet((4,0), (4,2), ipc.layout + ipc.paint + ipc.js + ipc.css + ipc.html)
 functions = {"PumpPendingSpeculations","ResumeParsingAfterYield", "ParseSheet","UpdateStyleAndLayoutTree", "PerformLayout", "UpdateLifecyclePhasesInternal", "ExecuteScriptInMainWorld","ExecuteScriptInIsolatedWorld","CallFunction"}
-currentFunc = "PerformLayout"
+currentFunc = "ResumeParsingAfterYield"
 speedUpOne = ipc.FunctionSet((0,2), (4,2), [currentFunc])
 print('Slowdown: {}'.format(list(functions - {currentFunc})))
 slowDownRest = ipc.FunctionSet((4,0), (4,2), list(functions - {currentFunc}))
@@ -36,9 +36,9 @@ slowDownRest = ipc.FunctionSet((4,0), (4,2), list(functions - {currentFunc}))
 # Add sets to experiment and init
 # expInt.addSet(bigToAll)
 # expInt.addSet(littleToAll)
-expInt.addSet(allLittle)
-# expInt.addSet(speedUpOne)
-# expInt.addSet(slowDownRest)
+# expInt.addSet(allLittle)
+expInt.addSet(speedUpOne)
+expInt.addSet(slowDownRest)
 
 # Arg parsing
 parser = argparse.ArgumentParser()
@@ -115,17 +115,17 @@ functions   = [
 # 		'http://tucunare.cs.pitt.edu:8080/slashdot/slashdot.org/', 
 # 		'http://tucunare.cs.pitt.edu:8080/twitter/twitter.com/', 
 # 		'http://tucunare.cs.pitt.edu:8080/youtube/www.youtube.com/']
-sites = ['tucunare.cs.pitt.edu:8080/amazon/www.amazon.com/index.html',
-		'tucunare.cs.pitt.edu:8080/bbc/www.bbc.co.uk/index.html', 
-		'tucunare.cs.pitt.edu:8080/cnn/www.cnn.com/index.html', 
-		'tucunare.cs.pitt.edu:8080/craigslist/newyork.craigslist.org/index.html', 
-		'tucunare.cs.pitt.edu:8080/ebay/www.ebay.com/index.html',
-        'tucunare.cs.pitt.edu:8080/espn/espn.go.com/index.html',
-		'tucunare.cs.pitt.edu:8080/google/www.google.com/index.html', 
-		'tucunare.cs.pitt.edu:8080/msn/www.msn.com/index.html', 
-		'tucunare.cs.pitt.edu:8080/slashdot/slashdot.org/index.html', 
-		'tucunare.cs.pitt.edu:8080/twitter/twitter.com/index.html', 
-		'tucunare.cs.pitt.edu:8080/youtube/www.youtube.com/watch07c3.html'
+sites = ['http://tucunare.cs.pitt.edu:8080/amazon/www.amazon.com/index.html',
+		'http://tucunare.cs.pitt.edu:8080/bbc/www.bbc.co.uk/index.html', 
+		'http://tucunare.cs.pitt.edu:8080/cnn/www.cnn.com/index.html', 
+		'http://tucunare.cs.pitt.edu:8080/craigslist/newyork.craigslist.org/index.html', 
+		'http://tucunare.cs.pitt.edu:8080/ebay/www.ebay.com/index.html',
+        'http://tucunare.cs.pitt.edu:8080/espn/espn.go.com/index.html',
+		'http://tucunare.cs.pitt.edu:8080/google/www.google.com/index.html', 
+		'http://tucunare.cs.pitt.edu:8080/msn/www.msn.com/index.html', 
+		'http://tucunare.cs.pitt.edu:8080/slashdot/slashdot.org/index.html', 
+		'http://tucunare.cs.pitt.edu:8080/twitter/twitter.com/index.html', 
+		'http://tucunare.cs.pitt.edu:8080/youtube/www.youtube.com/watch07c3.html'
         ]
 coreConfigs = [(4,4),(2,2),(0,4),(4,0)] # (lil,big)
 littles     = [0,1,2,3]
@@ -297,8 +297,9 @@ with open(mFilename, "r+b")  as mfile, \
     for iteration in range(iterations):
         printv(f"On iteration {iteration}",args.verbose)
         for page in random.sample(sites,len(sites)):
-            if "http://www." not in page:
-                page = "http://www." + page # address needs to be http://www.*
+            # Since switch to local server, no longer appropriate to use "www."
+            # if "http://www." not in page:
+            #     page = "http://www." + page # address needs to be http://www.*
 
             # Generate ID to keep track of page load (may be multiple per page)
             pageLoadId = genUniqueId()
