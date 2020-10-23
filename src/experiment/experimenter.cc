@@ -123,6 +123,7 @@ void experiment_start_timer() {
 }
 
 void experiment_init(const char *exec_name) {
+    fprintf(stderr, "!!! initializing experiment\n");
     const std::lock_guard<std::mutex> lock(start_mut);
     if (did_start) {
         fprintf(stderr,"experimenter.cc: ");
@@ -226,6 +227,7 @@ void experiment_mark_page_start() {
 }
 
 void experiment_mark_page_loaded() {
+    fprintf(stderr, "!!! tried to mark page as loaded\n");
     if (!page_loaded && !external_timing) {
         clock_gettime(CLOCK_MONOTONIC,&page_end);
         double page_load = -1.0;
@@ -277,5 +279,9 @@ void experiment_fexit(std::string func_name) {
     cpu_set_t mask = fmap[func_name].second;
     set_affinity_with_mask(&mask);
 #endif
+    char* env_page = getenv("CUR_PAGE");
+    if (env_page != nullptr) {
+        fprintf(stderr, "!!! %s\n", env_page);
+    }
     LOG(INFO) << tid << ":\t" << func_name << "\t" << mask_to_str(mask) << "\t" << get_curr_cpu() << "\t" << latency;
 }

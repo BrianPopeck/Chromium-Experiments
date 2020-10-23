@@ -297,6 +297,8 @@ with open(mFilename, "r+b")  as mfile, \
     for iteration in range(iterations):
         printv(f"On iteration {iteration}",args.verbose)
         for page in random.sample(sites,len(sites)):
+            os.environ['CUR_PAGE'] = 'hi buddy'
+
             # Since switch to local server, no longer appropriate to use "www."
             # if "http://www." not in page:
             #     page = "http://www." + page # address needs to be http://www.*

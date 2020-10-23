@@ -7,7 +7,7 @@ if [ -z $EXP_DATALOG_DIR ]; then
 fi
 EMPTY_FILES=`find $EXP_DATALOG_DIR -size 0`
 if [[ "$EMPTY_FILES" != "" ]]; then
-    find $EXP_DATALOG_DIR -size 0 | xargs rm || true # remove empty entries, some processes quit before they can log
+    find $EXP_DATALOG_DIR -size 0 | xargs rm || true # remove empty entrgies, some processes quit before they can log
 fi
 
 cd $EXP_DATALOG_DIR
@@ -28,7 +28,8 @@ for file in `ls -1`; do
         continue
     fi
 
-    cat $file | tail +4 | awk '{ if (NF == 10  && $4=="INFO") print $7"\t"$10 }' >> $FUNC_LOG # latency
+    # cat $file | tail +4 | awk '{ if (NF == 10  && $4=="INFO") print $7"\t"$10 }' >> $FUNC_LOG # latency
+    cat $file | tail +4 | awk '{ if (NF == 10  && $4=="INFO") print $1"\t"$2"\t"$3"\t"$7"\t"$10 }' >> $FUNC_LOG # latency
     cat $file | tail +4 | awk '{ if (NF == 8  && $4=="INFO" && $7=="PageLoadTime") print $7"\t"$8 }' >> $FUNC_LOG # page load time
 done
 
