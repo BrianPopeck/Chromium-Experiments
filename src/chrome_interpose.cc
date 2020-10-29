@@ -320,10 +320,24 @@ namespace blink {
             };
     };
 
+    enum class PaintBenchmarkMode {
+        kNormal,
+        kForceRasterInvalidationAndConvert,
+        kForcePaintArtifactCompositorUpdate,
+        kForcePaint,
+        // The above modes don't additionally invalidate paintings, i.e. during
+        // repeated benchmarking, the PaintController is fully cached.
+        kPartialInvalidation,
+        kSubsequenceCachingDisabled,
+        kCachingDisabled,
+    };
+
     class LocalFrameView {
         void UpdateLifecyclePhasesInternal(
                 DocumentLifecycle::LifecycleState target_state);
         void PerformLayout(bool);
+        void RunPaintLifecyclePhase(PaintBenchmarkMode benchmark_mode);
+        bool RunStyleAndLayoutLifecyclePhases(DocumentLifecycle::LifecycleState target_state);
     };
 
     /* Paint Stage */
@@ -366,7 +380,38 @@ namespace blink {
         experiment_fentry("PerformLayout");
         real_fcn(this,in_subtree_layout);
         experiment_fexit("PerformLayout");
+    }
 
+    typedef void (*paint_lifecycle_ptr)(
+        LocalFrameView*,
+        PaintBenchmarkMode);
+    void LocalFrameView::RunPaintLifecyclePhase(PaintBenchmarkMode benchmark_mode) {
+
+        paint_lifecycle_ptr real_fcn = (paint_lifecycle_ptr)dlsym(RTLD_NEXT, "_ZN5blink14LocalFrameView22RunPaintLifecyclePhaseEv"); // use mangled name
+        if (real_fcn == NULL) {
+            printf("Error finding function 'RunPaintLifecyclePhase'\n");
+            exit(1);
+        }
+
+        experiment_fentry("RunPaintLifecyclePhase");
+        real_fcn(this, benchmark_mode);
+        experiment_fexit("RunPaintLifecyclePhase");
+    }
+
+    typedef void (*style_and_layout_lifecycle_ptr)(
+        LocalFrameView*,
+        DocumentLifecycle::LifecycleState);
+    bool LocalFrameView::RunStyleAndLayoutLifecyclePhases(DocumentLifecycle::LifecycleState target_state) {
+
+        style_and_layout_lifecycle_ptr real_fcn = (style_and_layout_lifecycle_ptr)dlsym(RTLD_NEXT, "_ZN5blink14LocalFrameView32RunStyleAndLayoutLifecyclePhasesENS_17DocumentLifecycle14LifecycleStateE");
+        if (real_fcn == NULL) {
+            printf("Error finding function 'RunStyleAndLayoutLifecyclePhases'\n");
+            exit(1);
+        }
+
+        experiment_fentry("RunStyleAndLayoutLifecyclePhases");
+        real_fcn(this, target_state);
+        experiment_fexit("RunStyleAndLayoutLifecyclePhases");
     }
 
 

@@ -10,6 +10,7 @@ def main(argv):
     DIR = 'histograms/'
     pathlib.Path(DIR).mkdir(parents=True, exist_ok=True)
     latencies = {}
+    offset = 3
     for root, dirs, files in os.walk(os.path.join(argv[1], 'logs')):
             for filename in files:
                     if filename == 'func_latencies.log':
@@ -19,10 +20,10 @@ def main(argv):
                             for i, line in enumerate(lines):
                                     split = [text.rstrip(' ')  for text in line.split()]
                                     # print(split)
-                                    if split[0] in latencies:
-                                        latencies[split[0]].append(float(split[1]))
+                                    if split[0 + offset] in latencies:
+                                        latencies[split[0 + offset]].append(float(split[1 + offset]))
                                     else:
-                                        latencies[split[0]] = [float(split[1])]
+                                        latencies[split[0 + offset]] = [float(split[1 + offset])]
 
     colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:pink', 'tab:olive']
 

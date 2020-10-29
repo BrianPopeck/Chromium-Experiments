@@ -25,8 +25,8 @@ print(ipc.paint)
 # littleToAll = ipc.FunctionSet((4,0),(4,4),ipc.css + ipc.html)
 
 allLittle = ipc.FunctionSet((4,0), (4,2), ipc.layout + ipc.paint + ipc.js + ipc.css + ipc.html)
-functions = {"PumpPendingSpeculations","ResumeParsingAfterYield", "ParseSheet","UpdateStyleAndLayoutTree", "PerformLayout", "UpdateLifecyclePhasesInternal", "ExecuteScriptInMainWorld","ExecuteScriptInIsolatedWorld","CallFunction"}
-currentFunc = "ResumeParsingAfterYield"
+functions = {"PumpPendingSpeculations","ResumeParsingAfterYield", "ParseSheet","UpdateStyleAndLayoutTree", "PerformLayout", "UpdateLifecyclePhasesInternal", "ExecuteScriptInMainWorld","ExecuteScriptInIsolatedWorld", "CallFunction", "RunPaintLifecyclePhase", "RunStyleAndLayoutLifecyclePhases"}
+currentFunc = "ExecuteScriptInMainWorld"
 speedUpOne = ipc.FunctionSet((0,2), (4,2), [currentFunc])
 print('Slowdown: {}'.format(list(functions - {currentFunc})))
 slowDownRest = ipc.FunctionSet((4,0), (4,2), list(functions - {currentFunc}))
@@ -297,7 +297,7 @@ with open(mFilename, "r+b")  as mfile, \
     for iteration in range(iterations):
         printv(f"On iteration {iteration}",args.verbose)
         for page in random.sample(sites,len(sites)):
-            os.environ['CUR_PAGE'] = 'hi buddy'
+            # os.environ['CUR_PAGE'] = 'hi buddy'
 
             # Since switch to local server, no longer appropriate to use "www."
             # if "http://www." not in page:
@@ -306,27 +306,37 @@ with open(mFilename, "r+b")  as mfile, \
             # Generate ID to keep track of page load (may be multiple per page)
             pageLoadId = genUniqueId()
             printv(f"On page ({pageLoadId}): " + page,args.verbose)
+            timestamp = time.time()
 
             # Instruct chrome to navigate to page
             chrome.Page.navigate(url=page)
 
             chrome.wait_event("Page.loadEventFired",timeout=args.timeout)
 
+            elapsed_time = time.time() - timestamp
+
             # Data is in the format [navigationStart timestamp, duration in ms]
-            result = [None,None,page]
-            try:
-                result[0] = chrome.Runtime.evaluate(expression="performance.timing.navigationStart")['result']['result']['value'] # there's probably a more pythonic way to do this...
-                result[1] = chrome.Runtime.evaluate(expression="performance.getEntriesByType('navigation')[0].duration")['result']['result']['value']
-            except:
-                pass
-            while 0 in result or None in result:
-                printv("Waiting for result",args.verbose)
-                time.sleep(5) # wait 5 seconds then retry
-                try:
-                    result[0] = chrome.Runtime.evaluate(expression="performance.timing.navigationStart")['result']['result']['value']
-                    result[1] = chrome.Runtime.evaluate(expression="performance.getEntriesByType('navigation')[0].duration")['result']['result']['value']
-                except:
-                    pass
+            # result = [None,None,page]
+            result = [timestamp, elapsed_time * 1000, page]
+
+
+            # TODO: evaluate old code, had issues with getting stuck in busy loop
+            # try:
+            #     result[0] = chrome.Runtime.evaluate(expression="performance.timing.navigationStart")['result']['result']['value'] # there's probably a more pythonic way to do this...
+            #     result[1] = chrome.Runtime.evaluate(expression="performance.getEntriesByType('navigation')[0].duration")['result']['result']['value']
+            # except:
+            #     pass
+            # while 0 in result or None in result:
+            #     printv("Waiting for result",args.verbose)
+            #     time.sleep(5) # wait 5 seconds then retry
+            #     try:
+            #         result[0] = chrome.Runtime.evaluate(expression="performance.timing.navigationStart")['result']['result']['value']
+            #         result[1] = chrome.Runtime.evaluate(expression="performance.getEntriesByType('navigation')[0].duration")['result']['result']['value']
+            #     except:
+            #         pass
+
+
+
             printv(f"Runtime result: {result}",args.verbose)
 
             # Store recorded data with associated pageLoadId
