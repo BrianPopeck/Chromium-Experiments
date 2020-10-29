@@ -76,38 +76,7 @@ namespace WTF {
     class String;
 };
 
-// namespace content {
-
-// /* Observing Start and End Times */
-// class WebContentsObserver {
-//     void DidStartLoading();
-//     void DidStopLoading();
-// };
-
-// typedef void (*start_loading_ptr)(WebContentsObserver*);
-
-// void WebContentsObserver::DidStartLoading() {
-
-//     // start_loading_ptr real_fcn = (start_loading_ptr)dlsym(RTLD_NEXT, "_ZN7content19WebContentsObserver15DidStartLoadingEv");
-//     start_loading_ptr real_fcn = (start_loading_ptr)dlsym(RTLD_NEXT, "THISISNOTAVALIDNAME");
-//     if (real_fcn == NULL) {
-//         printf("Error finding function 'DidStartLoading'\n");
-//         exit(1);
-//     }
-//     struct timespec start_time;
-//     clock_gettime(CLOCK_MONOTONIC, &start_time);
-//     printf("Website starting loading at timestamp %ld\n", start_time.tv_sec);
-//     experiment_pageload_started(start_time.tv_sec);
-//     exit(1);
-//     real_fcn(this);
-// }
-
-// } // namespace content
-
-
-
-namespace blink {
-    
+namespace content {
     /* Observing Start and End Times */
     class WebContentsObserver {
         void DidStartLoading();
@@ -118,8 +87,7 @@ namespace blink {
 
     void WebContentsObserver::DidStartLoading() {
 
-        // start_loading_ptr real_fcn = (start_loading_ptr)dlsym(RTLD_NEXT, "_ZN7content19WebContentsObserver15DidStartLoadingEv");
-        start_loading_ptr real_fcn = (start_loading_ptr)dlsym(RTLD_NEXT, "_ZN5blink19WebLocalFrameClient15DidStartLoadingEv");
+        start_loading_ptr real_fcn = (start_loading_ptr)dlsym(RTLD_NEXT, "_ZN7content19WebContentsObserver15DidStartLoadingEv");
         if (real_fcn == NULL) {
             printf("Error finding function 'DidStartLoading'\n");
             exit(1);
@@ -131,12 +99,29 @@ namespace blink {
         exit(1);
         real_fcn(this);
     }
+
+    typedef void (*stop_loading_ptr)(WebContentsObserver*);
+
+    void WebContentsObserver::DidStopLoading() {
+
+        stop_loading_ptr real_fcn = (stop_loading_ptr)dlsym(RTLD_NEXT, "_ZN7content19WebContentsObserver14DidStopLoadingEv");
+        if (real_fcn == NULL) {
+            printf("Error finding function 'DidStopLoading'\n");
+            exit(1);
+        }
+        printf("Website stopped loading\n");
+        real_fcn(this);
+    }
+}
+
+namespace blink {
     
     /* HTML Stage */
 
     class HTMLDocumentParser { // leaving this out for now, focusing on Web Performance API
-        void PumpPendingSpeculations();
+        void PumpPendingSpeculations(); // private
         void ResumeParsingAfterYield();
+        void ResumeParsingAfterPause(); // private
     };
 
     typedef void (*pump_pend_ptr)(HTMLDocumentParser*); // requires the "this" at least
@@ -157,11 +142,11 @@ namespace blink {
     }
 
 
-    typedef void (*resume_parse_ptr)(HTMLDocumentParser*); // requires the "this" at least
+    typedef void (*resume_parse_yield_ptr)(HTMLDocumentParser*); // requires the "this" at least
 
     void HTMLDocumentParser::ResumeParsingAfterYield() {
-        resume_parse_ptr real_fcn =
-            (resume_parse_ptr)dlsym(RTLD_NEXT,"_ZN5blink18HTMLDocumentParser23ResumeParsingAfterYieldEv"); // use mangled name
+        resume_parse_yield_ptr real_fcn =
+            (resume_parse_yield_ptr)dlsym(RTLD_NEXT,"_ZN5blink18HTMLDocumentParser23ResumeParsingAfterYieldEv"); // use mangled name
         if (real_fcn == NULL) {
             printf("Error finding function 'ResumeParsingAfterYield'\n");
             exit(1);
@@ -172,13 +157,28 @@ namespace blink {
         experiment_fexit("ResumeParsingAfterYield");
     }
 
+    typedef void (*resume_parse_pause_ptr)(HTMLDocumentParser*); // requires the "this" at least
+
+    void HTMLDocumentParser::ResumeParsingAfterPause() {
+        resume_parse_pause_ptr real_fcn =
+            (resume_parse_pause_ptr)dlsym(RTLD_NEXT,"_ZN5blink18HTMLDocumentParser23ResumeParsingAfterPauseEv"); // use mangled name
+        if (real_fcn == NULL) {
+            printf("Error finding function 'ResumeParsingAfterPause'\n");
+            exit(1);
+        }
+
+        experiment_fentry("ResumeParsingAfterPause");
+        real_fcn(this);
+        experiment_fexit("ResumeParsingAfterPause");
+    }
+
     /* Requisite Class Definitions */
 
     enum class ParseSheetResult; // css_parser.h
     class CSSParserContext;
     class StyleSheetContents;
     enum class CSSDeferPropertyParsing; // css_parser_mode.h
-        class CSSParser {
+    class CSSParser {
         static ParseSheetResult ParseSheet(
                 const CSSParserContext*,
                 StyleSheetContents*,
@@ -262,6 +262,7 @@ namespace blink {
             exit(1);
         }
 
+        // TODO: figure out why not seeing kComplete in experiments
         switch(ready_state) {
             case kInteractive:
                 break;
@@ -320,24 +321,60 @@ namespace blink {
             };
     };
 
-    enum class PaintBenchmarkMode {
-        kNormal,
-        kForceRasterInvalidationAndConvert,
-        kForcePaintArtifactCompositorUpdate,
-        kForcePaint,
-        // The above modes don't additionally invalidate paintings, i.e. during
-        // repeated benchmarking, the PaintController is fully cached.
-        kPartialInvalidation,
-        kSubsequenceCachingDisabled,
-        kCachingDisabled,
-    };
+    // enum class PaintBenchmarkMode {
+    //     kNormal,
+    //     kForceRasterInvalidationAndConvert,
+    //     kForcePaintArtifactCompositorUpdate,
+    //     kForcePaint,
+    //     // The above modes don't additionally invalidate paintings, i.e. during
+    //     // repeated benchmarking, the PaintController is fully cached.
+    //     kPartialInvalidation,
+    //     kSubsequenceCachingDisabled,
+    //     kCachingDisabled,
+    // };
+
+    // enum class DocumentUpdateReason {
+    //     kAccessibility,
+    //     kBaseColor,
+    //     kBeginMainFrame,
+    //     kCanvas,
+    //     kContextMenu,
+    //     kDisplayLock,
+    //     kDragImage,
+    //     kEditing,
+    //     kFindInPage,
+    //     kFocus,
+    //     kForm,
+    //     kHitTest,
+    //     kInput,
+    //     kInspector,
+    //     kIntersectionObservation,
+    //     kJavaScript,
+    //     kOverlay,
+    //     kPagePopup,
+    //     kPlugin,
+    //     kPrinting,
+    //     kScroll,
+    //     kSelection,
+    //     kSizeChange,
+    //     kSpatialNavigation,
+    //     kSpellCheck,
+    //     kSVGImage,
+    //     kTapHighlight,
+    //     kTest,
+    //     kUnknown
+    // };
+
+    enum class PaintBenchmarkMode;
+    enum class DocumentUpdateReason;
 
     class LocalFrameView {
         void UpdateLifecyclePhasesInternal(
-                DocumentLifecycle::LifecycleState target_state);
-        void PerformLayout(bool);
-        void RunPaintLifecyclePhase(PaintBenchmarkMode benchmark_mode);
-        bool RunStyleAndLayoutLifecyclePhases(DocumentLifecycle::LifecycleState target_state);
+                DocumentLifecycle::LifecycleState target_state);    // private
+        void PerformLayout(bool);   // private
+        void RunPaintLifecyclePhase(PaintBenchmarkMode benchmark_mode); // private
+        bool RunStyleAndLayoutLifecyclePhases(DocumentLifecycle::LifecycleState target_state);  // private
+        bool UpdateAllLifecyclePhases(DocumentUpdateReason reason);
     };
 
     /* Paint Stage */
@@ -398,7 +435,7 @@ namespace blink {
         experiment_fexit("RunPaintLifecyclePhase");
     }
 
-    typedef void (*style_and_layout_lifecycle_ptr)(
+    typedef bool (*style_and_layout_lifecycle_ptr)(
         LocalFrameView*,
         DocumentLifecycle::LifecycleState);
     bool LocalFrameView::RunStyleAndLayoutLifecyclePhases(DocumentLifecycle::LifecycleState target_state) {
@@ -410,8 +447,26 @@ namespace blink {
         }
 
         experiment_fentry("RunStyleAndLayoutLifecyclePhases");
-        real_fcn(this, target_state);
+        bool ret_val = real_fcn(this, target_state);
         experiment_fexit("RunStyleAndLayoutLifecyclePhases");
+        return ret_val;
+    }
+
+    typedef bool (*update_all_lifecycle_ptr)(
+        LocalFrameView*,
+        DocumentUpdateReason);
+    bool LocalFrameView::UpdateAllLifecyclePhases(DocumentUpdateReason reason) {
+
+        update_all_lifecycle_ptr real_fcn = (update_all_lifecycle_ptr)dlsym(RTLD_NEXT, "_ZN5blink14LocalFrameView24UpdateAllLifecyclePhasesENS_17DocumentLifecycle21LifecycleUpdateReasonE");
+        if (real_fcn == NULL) {
+            printf("Error finding function 'UpdateAllLifecyclePhases'\n");
+            exit(1);
+        }
+
+        experiment_fentry("UpdateAllLifecyclePhases");
+        bool ret_val = real_fcn(this, reason);
+        experiment_fexit("UpdateAllLifecyclePhases");
+        return ret_val;
     }
 
 

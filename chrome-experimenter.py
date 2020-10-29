@@ -10,6 +10,7 @@ import time               # pageLoad timing
 import mmap               # shared file
 import argparse           # argument parsing
 import shlex              # shell arg parsing
+import shutil             # removing experiment directory on error
 
 
 from src.python.convenience import * # convenience functions
@@ -25,7 +26,7 @@ print(ipc.paint)
 # littleToAll = ipc.FunctionSet((4,0),(4,4),ipc.css + ipc.html)
 
 allLittle = ipc.FunctionSet((4,0), (4,2), ipc.layout + ipc.paint + ipc.js + ipc.css + ipc.html)
-functions = {"PumpPendingSpeculations","ResumeParsingAfterYield", "ParseSheet","UpdateStyleAndLayoutTree", "PerformLayout", "UpdateLifecyclePhasesInternal", "ExecuteScriptInMainWorld","ExecuteScriptInIsolatedWorld", "CallFunction", "RunPaintLifecyclePhase", "RunStyleAndLayoutLifecyclePhases"}
+functions = {"PumpPendingSpeculations","ResumeParsingAfterYield", "ParseSheet","UpdateStyleAndLayoutTree", "PerformLayout", "UpdateLifecyclePhasesInternal", "ExecuteScriptInMainWorld","ExecuteScriptInIsolatedWorld", "CallFunction", "RunPaintLifecyclePhase", "RunStyleAndLayoutLifecyclePhases", "ResumeParsingAfterPause", "UpdateAllLifecyclePhases"}
 currentFunc = "ExecuteScriptInMainWorld"
 speedUpOne = ipc.FunctionSet((0,2), (4,2), [currentFunc])
 print('Slowdown: {}'.format(list(functions - {currentFunc})))
@@ -103,18 +104,10 @@ url = ""
 functions   = [
         "PumpPendingSpeculations","ResumeParsingAfterYield","ParseSheet",
         "UpdateStyleAndLayoutTree","UpdateLifeCyclePhasesInternal","PerformLayout",
-        "ExecuteScriptInMainWorld","ExecuteScriptInIsolatedWorld","CallFunction"
+        "ExecuteScriptInMainWorld","ExecuteScriptInIsolatedWorld","CallFunction", 
+        "RunPaintLifecyclePhase", "RunStyleAndLayoutLifecyclePhases", "ResumeParsingAfterPause",
+        "UpdateAllLifecyclePhases"
         ]
-# sites = ['http://tucunare.cs.pitt.edu:8080/amazon/www.amazon.com/',
-# 		'http://tucunare.cs.pitt.edu:8080/bbc/www.bbc.co.uk/', 
-# 		'http://tucunare.cs.pitt.edu:8080/cnn/www.cnn.com/', 
-# 		'http://tucunare.cs.pitt.edu:8080/craigslist/newyork.craigslist.org/', 
-# 		'http://tucunare.cs.pitt.edu:8080/ebay/www.ebay.com/',
-# 		'http://tucunare.cs.pitt.edu:8080/google/www.google.com/', 
-# 		'http://tucunare.cs.pitt.edu:8080/msn/www.msn.com/', 
-# 		'http://tucunare.cs.pitt.edu:8080/slashdot/slashdot.org/', 
-# 		'http://tucunare.cs.pitt.edu:8080/twitter/twitter.com/', 
-# 		'http://tucunare.cs.pitt.edu:8080/youtube/www.youtube.com/']
 sites = ['http://tucunare.cs.pitt.edu:8080/amazon/www.amazon.com/index.html',
 		'http://tucunare.cs.pitt.edu:8080/bbc/www.bbc.co.uk/index.html', 
 		'http://tucunare.cs.pitt.edu:8080/cnn/www.cnn.com/index.html', 
@@ -314,6 +307,26 @@ with open(mFilename, "r+b")  as mfile, \
             chrome.wait_event("Page.loadEventFired",timeout=args.timeout)
 
             elapsed_time = time.time() - timestamp
+
+            # check for error due to timeout
+            if elapsed_time > args.timeout:
+                printv(f"Error: exceeded timeout when loading page {page}",args.verbose)
+
+                try:
+                    shutil.rmtree(expDirName)
+                    printv(f"Deleted experiment directory {expDirName}",args.verbose)
+                except:
+                    printv(f"Unable to delete experiment directory {expDirName}",args.verbose)
+
+                try:
+                    printv("Closing chrome",args.verbose)
+                    chrome.Browser.close()
+                    time.sleep(3)
+                    process.kill()
+                except:
+                    pass
+
+                sys.exit(1)
 
             # Data is in the format [navigationStart timestamp, duration in ms]
             # result = [None,None,page]

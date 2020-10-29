@@ -123,7 +123,6 @@ void experiment_start_timer() {
 }
 
 void experiment_init(const char *exec_name) {
-    fprintf(stderr, "!!! initializing experiment\n");
     const std::lock_guard<std::mutex> lock(start_mut);
     if (did_start) {
         fprintf(stderr,"experimenter.cc: ");
