@@ -27,6 +27,7 @@ int my_main(int argc, char **argv, char **env) {
        } else if (strncmp(argv[1],"--no-zygote",12) == 0) { // initial process
            experiment_init(argv[0]);
            experiment_start_timer(); // just start a timer
+           experiment_start_counters();
            //pgrp = getpgrp(); // get the process group so we can kill all spawned processes later
        }
    }

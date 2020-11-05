@@ -27,7 +27,7 @@ print(ipc.paint)
 
 allLittle = ipc.FunctionSet((4,0), (4,2), ipc.layout + ipc.paint + ipc.js + ipc.css + ipc.html)
 functions = {"PumpPendingSpeculations","ResumeParsingAfterYield", "ParseSheet","UpdateStyleAndLayoutTree", "PerformLayout", "UpdateLifecyclePhasesInternal", "ExecuteScriptInMainWorld","ExecuteScriptInIsolatedWorld", "CallFunction", "RunPaintLifecyclePhase", "RunStyleAndLayoutLifecyclePhases", "ResumeParsingAfterPause", "UpdateAllLifecyclePhases"}
-currentFunc = "ExecuteScriptInMainWorld"
+currentFunc = "ParseSheet"
 speedUpOne = ipc.FunctionSet((0,2), (4,2), [currentFunc])
 print('Slowdown: {}'.format(list(functions - {currentFunc})))
 slowDownRest = ipc.FunctionSet((4,0), (4,2), list(functions - {currentFunc}))

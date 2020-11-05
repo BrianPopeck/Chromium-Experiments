@@ -20,6 +20,19 @@
 #include <g3log/g3log.hpp> // logger
 #include <g3log/logworker.hpp>
 
+// interface with perf
+#define PROF_USER_EVENTS_ONLY
+#define PROF_EVENT_LIST \
+    PROF_EVENT_CACHE(L1D, READ, MISS) \
+    PROF_EVENT_CACHE(L1D, READ, ACCESS) \
+    PROF_EVENT_HW(BRANCH_MISSES) \
+    PROF_EVENT_HW(BRANCH_INSTRUCTIONS) \
+    PROF_EVENT_HW(INSTRUCTIONS) \
+    PROF_EVENT_HW(BUS_CYCLES) \
+    // PROF_EVENT_CACHE(LL, READ, MISS) \
+    PROF_EVENT_CACHE(LL, READ, ACCESS)
+#include "prof.h" 
+
 
 static std::mutex time_mut, config_mut, start_mut, fmap_mut;
 static std::atomic<bool> did_start(false), page_loaded(false), config_set(false), page_started(false), external_timing(false);
@@ -130,8 +143,8 @@ void experiment_init(const char *exec_name) {
         return;
     }
 
-    fprintf(stderr,"experimenter.cc: ");
-    fprintf(stderr,"Initializing experiment\n");
+    // fprintf(stderr,"experimenter.cc: ");
+    // fprintf(stderr,"Initializing experiment\n");
 
     // Init RNG
     char* env_seed = getenv("RNG_SEED");
@@ -211,10 +224,17 @@ void experiment_init(const char *exec_name) {
     did_start = true; // done initializing, all threads can go now
 }
 
+void experiment_start_counters() {
+    fprintf(stderr, "starting perf counters\n");
+    PROF_START();   // start collecting performance counters
+}
+
 void experiment_stop() {
     if (did_start) {
         //fprintf(stderr,"experimenter.cc: ");
         //fprintf(stderr,"\nProgram exceeded %d s limit\n",timeout_s);
+        fprintf(stderr, "from experimenter.cc, logging performance counters at end of experiment\n");
+        PROF_STDERR();  // log performance counters to error log
         g3::internal::shutDownLogging();
     }
 }

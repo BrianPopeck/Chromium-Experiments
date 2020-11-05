@@ -15,3 +15,5 @@ void experiment_pageload_started(long timestamp);
 void experiment_fentry(std::string func_name);
 
 void experiment_fexit(std::string func_name);
+
+void experiment_start_counters();
