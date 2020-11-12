@@ -9,6 +9,8 @@
 
 #include <unistd.h> // tid
 #include <sys/syscall.h> // get tid
+#include <sys/types.h>  // get pid
+#include <unistd.h>     // get pid
 #include <time.h> 
 #include <signal.h>
 #include <random>
@@ -36,7 +38,7 @@
 #include "prof.h" 
 
 
-static std::mutex time_mut, config_mut, start_mut, fmap_mut;
+static std::mutex time_mut, config_mut, start_mut, fmap_mut, stderr_mut;
 static std::atomic<bool> did_start(false), page_loaded(false), config_set(false), page_started(false), external_timing(false);
 static std::atomic<int> timeout_s(45);
 static int pgid = 0;
@@ -226,9 +228,21 @@ void experiment_init(const char *exec_name) {
     did_start = true; // done initializing, all threads can go now
 }
 
-void experiment_start_counters() {
-    fprintf(stderr, "starting perf counters\n");
+void experiment_start_counters(const char* process_type) {
+    const std::lock_guard<std::mutex> lock(stderr_mut);
+    fprintf(stderr, "PROCESS_START %s %ld\n", process_type, (long)getpid());
     PROF_START();   // start collecting performance counters
+}
+
+void* experiment_dump_counters(void* args) {
+    pid_t pid = *((pid_t*) args);
+    while (1) {
+        usleep(1e5);    // sleep for 100ms
+        const std::lock_guard<std::mutex> lock(stderr_mut);
+        fprintf(stderr, "PERF_DUMP %ld\n", (long)getpid());
+        PROF_STDERR();
+        PROF_START();   // reset and resume counting the events
+    }
 }
 
 void experiment_stop() {

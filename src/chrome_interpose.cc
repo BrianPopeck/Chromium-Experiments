@@ -8,6 +8,8 @@
 #include <unistd.h>
 #include <signal.h>
 
+#include <pthread.h>
+
 #include "chrome_includes/v8/v8.h" // v8 stuff
 
 
@@ -24,11 +26,26 @@ int my_main(int argc, char **argv, char **env) {
    if (argv != nullptr && argc > 1 && argv[1] != nullptr) {
        if (strncmp(argv[1],"--type=renderer",15) == 0) { // renderer process
            experiment_init(argv[0]); // set up logger, register handlers
+           experiment_start_counters("renderer");
+
+           pthread_t perf_thread;
+           pid_t pid = getpid();
+           if (pthread_create(&perf_thread, NULL, experiment_dump_counters, &pid)) {
+               fprintf(stderr, "failed to start perf thread for renderer process\n");
+               exit(1);
+           }
        } else if (strncmp(argv[1],"--no-zygote",12) == 0) { // initial process
            experiment_init(argv[0]);
            experiment_start_timer(); // just start a timer
-           experiment_start_counters();
+           experiment_start_counters("initial");
            //pgrp = getpgrp(); // get the process group so we can kill all spawned processes later
+
+           pthread_t perf_thread;
+           pid_t pid = getpid();
+           if (pthread_create(&perf_thread, NULL, experiment_dump_counters, &pid)) {
+               fprintf(stderr, "failed to start perf thread for renderer process\n");
+               exit(1);
+           }
        }
    }
    //fprintf(stderr,"\n\n\nProcess: %s has pgrp: %d and pid: %d\n\n\n",argv[1],getpgrp(),getpid());

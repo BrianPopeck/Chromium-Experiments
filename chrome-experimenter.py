@@ -366,6 +366,9 @@ with open(mFilename, "r+b")  as mfile, \
             os.killpg(os.getpgid(process.pid),signal.SIGCONT)
             printv("Randomized masks for next run",args.verbose)
 
+            printv("Sleeping after page load",args.verbose)
+            time.sleep(5)
+
     printv("Waiting for chrome to finish",args.verbose)
     try:
         process.communicate(timeout=5) # wait for chrome to complete, or timeout

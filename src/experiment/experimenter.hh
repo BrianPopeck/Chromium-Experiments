@@ -16,4 +16,6 @@ void experiment_fentry(std::string func_name);
 
 void experiment_fexit(std::string func_name);
 
-void experiment_start_counters();
+void experiment_start_counters(const char* process_type);
+
+void* experiment_dump_counters(void* args);
