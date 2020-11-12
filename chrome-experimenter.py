@@ -299,17 +299,21 @@ with open(mFilename, "r+b")  as mfile, \
             # Generate ID to keep track of page load (may be multiple per page)
             pageLoadId = genUniqueId()
             printv(f"On page ({pageLoadId}): " + page,args.verbose)
-            timestamp = time.time()
+            timestamp = time.time_ns() # nanoseconds since the epoch
 
             # Instruct chrome to navigate to page
             chrome.Page.navigate(url=page)
 
             chrome.wait_event("Page.loadEventFired",timeout=args.timeout)
 
-            elapsed_time = time.time() - timestamp
+            elapsed_time = time.time_ns() - timestamp
+            
+            # convert to ms since epoch
+            elapsed_time = elapsed_time / float(1E6)
+            timestamp = timestamp / float(1E6)
 
             # check for error due to timeout
-            if elapsed_time > args.timeout:
+            if elapsed_time > args.timeout * 1000:
                 printv(f"Error: exceeded timeout when loading page {page}",args.verbose)
 
                 try:
@@ -330,7 +334,7 @@ with open(mFilename, "r+b")  as mfile, \
 
             # Data is in the format [navigationStart timestamp, duration in ms]
             # result = [None,None,page]
-            result = [timestamp, elapsed_time * 1000, page]
+            result = [timestamp, elapsed_time, page]
 
 
             # TODO: evaluate old code, had issues with getting stuck in busy loop
