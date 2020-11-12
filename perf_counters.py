@@ -86,13 +86,24 @@ def main(argv):
                             i += 1
 
     for website in pageloads:
-        print('For website {}'.format(website))
+        print('\nFor website {}'.format(website))
         for pid in processes:
-            print('For process {}'.format(pid))
+            summed_metrics = []
+            print('For {} process {}\n'.format(processes[pid].ptype, pid))
             perf_dumps = [perf_dump for perf_dump in processes[pid].perf_dumps if perf_dump.website == website]
             for i in range(len(PerfDump.perf_events)):
-                summed_metric = sum([perf_dump.weight * perf_dump.counters[i] for perf_dump in perf_dumps])
-                print('{}: {}'.format(PerfDump.perf_events[i], summed_metric))
+                summed_metrics.append(sum([perf_dump.weight * perf_dump.counters[i] for perf_dump in perf_dumps]))
+                print('{}: {}'.format(PerfDump.perf_events[i], summed_metrics[i]))
+            print('')
+
+            if summed_metrics[4] > 0:
+                print('CPI: {}'.format(summed_metrics[6] / float(summed_metrics[4])))
+            if summed_metrics[1] > 0:
+                print('L1D miss rate: {}'.format(summed_metrics[0] / float(summed_metrics[1])))
+            if summed_metrics[3] > 0:
+                print('Branch misprediction rate: {}'.format(summed_metrics[2] / float(summed_metrics[3])))
+            print('')
+
                                 
 
 class PageLoad():
@@ -108,7 +119,7 @@ class Process():
         self.perf_dumps = []
 
 class PerfDump():
-    perf_events = ['L1D Read Miss', 'L1D Read Access', 'Branch Misses', 'Branch Instructions', 'Instructions', 'Bus Cycles', 'CPU Cycles']
+    perf_events = ['L1D Read Miss', 'L1D Read Accesses', 'Branch Misses', 'Branch Instructions', 'Instructions', 'Bus Cycles', 'CPU Cycles']
     
     def __init__(self, timestamp):
         self.timestamp = timestamp

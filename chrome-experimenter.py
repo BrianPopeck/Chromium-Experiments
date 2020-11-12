@@ -38,8 +38,8 @@ slowDownRest = ipc.FunctionSet((4,0), (4,2), list(functions - {currentFunc}))
 # expInt.addSet(bigToAll)
 # expInt.addSet(littleToAll)
 # expInt.addSet(allLittle)
-expInt.addSet(speedUpOne)
-expInt.addSet(slowDownRest)
+# expInt.addSet(speedUpOne)
+# expInt.addSet(slowDownRest)
 
 # Arg parsing
 parser = argparse.ArgumentParser()
