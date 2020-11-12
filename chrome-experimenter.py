@@ -93,7 +93,7 @@ os.environ['LOG_FILE'] = f"{expDirName}/data"
 os.environ['LD_LIBRARY_PATH'] = f"/usr/local/lib:{os.environ['LD_LIBRARY_PATH'] if 'LD_LIBRARY_PATH' in os.environ else ''}" # not sure why run-chrome has this
 
 # Chromium default flag options
-chromeFlags = "--no-zygote --no-sandbox"
+chromeFlags = "--no-zygote --no-sandbox --renderer-process-limit=1"
 # TODO: experimental - having flags match 'run-chrome.sh'
 # chromeFlags = "--aggressive-cache-discard --disable-cache --disable-application-cache --disable-offline-load-stale-cache --disk-cache-size=0"
 debugPort = 9222

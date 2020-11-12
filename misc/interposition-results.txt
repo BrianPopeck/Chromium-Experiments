@@ -1,0 +1,31 @@
+WARNING: may be out-of-date
+
+The criteria for being successfully interpositioned is for latencies for the function to be included in func_latencies.log
+
+
+Successes
+
+blink::HTMLParser::ResumeParsingAfterYield
+blink::CSSParser::ParseSheet
+blink::Document::UpdateStyleAndLayoutTree
+blink::ScriptController::EvaluateScriptInMainWorld
+blink::v8ScriptRunner::CallFunction
+blink::Document::SetReadyState
+
+
+Failures                                                                                        Reason
+
+blink::HTMLParser::PumpPendingSpeculations                                                      private
+blink::LocalFrameView::PerformLayout                                                            private
+content::WebContentsObserver::DidStartLoading                                                   virtual
+content::WebContentsObserver::DidStopLoading                                                    virtual
+blink::HTMLParser::ResumeParsingAfterPause                                                      private
+blink::LocalFrameView::UpdateLifecyclePhasesInternal                                            private
+blink::LocalFrameView::RunPaintLifecyclePhase                                                   private
+blink::LocalFrameView::RunStyleAndLayoutLifecyclePhases                                         private
+blink::LocalFrameView::UpdateAllLifecyclePhases                                                 ???
+
+                
+Unknown
+
+blink::ScriptController::ExecuteScriptInIsolatedWorld                                           Function only executes within extension (see comments in chrome_interpose.cc)
