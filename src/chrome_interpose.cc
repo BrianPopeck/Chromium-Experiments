@@ -9,6 +9,7 @@
 #include <signal.h>
 
 #include <pthread.h>
+#include "experiment/cpu_utils.hh" // for moving all of chrome to certain set of cores
 
 #include "chrome_includes/v8/v8.h" // v8 stuff
 
@@ -24,6 +25,9 @@ thread_local main_fcn orig_main;
 int my_main(int argc, char **argv, char **env) {
 
    if (argv != nullptr && argc > 1 && argv[1] != nullptr) {
+       cpu_set_t mask;
+       set_affinity_big(&mask);
+       
        if (strncmp(argv[1],"--type=renderer",15) == 0) { // renderer process
            experiment_init(argv[0]); // set up logger, register handlers
            experiment_start_counters("renderer");
