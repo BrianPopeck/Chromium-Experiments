@@ -243,7 +243,8 @@ void* experiment_dump_counters(void* args) {
         double timestamp = (double)ts.tv_sec*1000 + (double)ts.tv_nsec/ns_to_ms;
 
         const std::lock_guard<std::mutex> lock(stderr_mut);
-        fprintf(stderr, "PERF_DUMP %ld %f\n", (long)getpid(), timestamp);
+        // fprintf(stderr, "PERF_DUMP %ld %f\n", (long)getpid(), timestamp);
+        fprintf(stderr, "PERF_DUMP %ld %f\n", pid, timestamp);
         PROF_STDERR();
         PROF_START();   // reset and resume counting the events
     }

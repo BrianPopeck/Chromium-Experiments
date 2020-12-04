@@ -14,7 +14,7 @@ def main(argv):
     root_dir = argv[1]
     exp_name = argv[2]
 
-    pathlib.Path(exp_name).mkdir(parents=True, exist_ok=True)
+    pathlib.Path('cpi-{}'.format(exp_name)).mkdir(parents=True, exist_ok=True)
 
     # get page load start and end times
     
@@ -35,11 +35,6 @@ def main(argv):
                                     website = split[3]
                                 else:
                                     continue
-
-                                # if website not in pageloads:
-                                #     pageloads[website] = [PageLoad(website, load_start, load_start + load_duration)]
-                                # else:
-                                #     pageloads[website].append(PageLoad(website, load_start, load_start + load_duration))
 
                                 pageloads[website] = PageLoad(website, load_start, load_start + load_duration)
 
@@ -138,8 +133,6 @@ def main(argv):
                 x.append(perf_dump.timestamp)
                 y.append(perf_dump.counters[6] / float(perf_dump.counters[4]))
 
-            # x = [perf_dump.timestamp for perf_dump in perf_dumps]
-            # y = [perf_dump.counters[6] / float(perf_dump.counters[4]) if perf_dump.counters[4] != 0 else 0 for perf_dump in perf_dumps]
             # normalize timestamp to be relative to length of execution
             time_start = x[0]
             time_end = x[-1]
@@ -151,7 +144,7 @@ def main(argv):
             plt.scatter(x, y)
 
             plt.gca().set(xlabel='percent of execution completed', ylabel='CPI in most recent timestep', title='Site {} and {} process {}'.format(domain, processes[pid].ptype, pid))            
-            plt.savefig('{}/{}-{}-{}.png'.format(exp_name, exp_name, domain, pid))
+            plt.savefig('cpi-{}/cpi-{}-{}-{}.png'.format(exp_name, exp_name, domain, pid))
             plt.clf()
 
                                 
