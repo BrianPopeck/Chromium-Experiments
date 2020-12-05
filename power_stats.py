@@ -3,6 +3,7 @@ import os
 import matplotlib.pyplot as plt
 from urllib.parse import urlparse
 import pathlib
+import statistics
 
 def main(argv):
     if len(argv) < 2:
@@ -17,6 +18,7 @@ def main(argv):
     pageloads = {}
     
     for root, dirs, files in os.walk(root_dir):
+        print(files)
         for filename in files:
                 if filename == 'pageloads.log':
                     print('found a pageloads log')
@@ -49,8 +51,6 @@ def main(argv):
                             timestamp = int(split[0]) * 1000   # milliseconds (integer) since the epoch
                             watts = float(split[1])   # Watts used by the system in the past second
 
-                            print(timestamp)
-
                             # resolve timestamp to page load - O(n) with n pages, could improve with sorting plus binary search
                             for page in pageloads:
                                 pageload = pageloads[page]
@@ -61,7 +61,6 @@ def main(argv):
                                 if timestamp < pageload.load_start or timestamp >= pageload.load_end + 1:
                                     continue
 
-                                print('found a measurement for page {} at time {}'.format(page, timestamp))
                                 pageload.power_measurements.append(watts)
                                 break
                                     
@@ -77,20 +76,15 @@ def main(argv):
         domain = url.path.split('/')[1]
 
         # Print out total power for this page
+
         if len(pageload.power_measurements) == 0:
             print('ERROR: no power measurements detected for site {}'.format(domain))
-            print()
-            sys.exit(1)
-
-        # TODO: add special case for pageloads <= 1 second
-        total = (1 - (pageload.load_start - int(pageload.load_start))) * pageload.power_measurements[0] # first interval
-        i = 1
-        while i < len(pageload.power_measurements) - 1:
-            total += pageload.power_measurements[i]
-            i += 1
-        total += (pageload.load_end - int(pageload.load_end)) * pageload.power_measurements[len(pageload.power_measurements) - 1]   # last interval
-
-        print('total power consumption for {0:}: {1:.2f}W'.format(domain, total))
+        else:
+            # scale average wattage by length of interval to mitigate impact of missing values for certain timestamps
+            # TODO: implement a more sophisticated way to deal with missing data
+            total = statistics.mean(pageload.power_measurements) if len(pageload.power_measurements) > 1 else pageload.power_measurements
+            total *= (pageload.load_end - pageload.load_start) / 1000   
+            print('total power consumption for {0:}: {1:.2f}W'.format(domain, total))
         
         if exp_name is None:
             continue
