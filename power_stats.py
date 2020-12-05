@@ -79,7 +79,7 @@ def main(argv):
                 total = statistics.mean(pageload.power_measurements) if len(pageload.power_measurements) > 1 else pageload.power_measurements[0]
                 print('one trial\'s average power consumption for {0:}: {1:.2f}W'.format(domain, total))
                 total *= (pageload.load_end - pageload.load_start) / 1000   
-                print('one trial\'s total energy consumption for {0:}: {1:.2f}W'.format(domain, total))
+                print('one trial\'s total energy consumption for {0:}: {1:.2f}J'.format(domain, total))
                 if website not in power_per_trial:
                     power_per_trial[website] = [total]
                 else:
@@ -120,7 +120,7 @@ def main(argv):
             print('ERROR: no energy consumption data for site {}'.format(domain))
             continue
 
-        print('Total energy consumed for {0:}: {1:.2f}W'.format(domain, power_consumption))
+        print('Total energy consumed for {0:}: {1:.2f}J'.format(domain, power_consumption))
 
 
 class PageLoad():

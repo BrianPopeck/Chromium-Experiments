@@ -27,7 +27,7 @@ print(ipc.paint)
 
 allLittle = ipc.FunctionSet((4,0), (4,2), ipc.layout + ipc.paint + ipc.js + ipc.css + ipc.html)
 functions = {"ResumeParsingAfterYield", "ParseSheet", "UpdateStyleAndLayoutTree", "ExecuteScriptInMainWorld","CallFunction"}
-currentFunc = {"ResumeParsingAfterYield"}
+currentFunc = set()
 speedUp = ipc.FunctionSet((0,2), (4,2), list(currentFunc))
 print('Slowdown: {}'.format(list(functions - currentFunc)))
 slowDownRest = ipc.FunctionSet((4,0), (4,2), list(functions - currentFunc))
@@ -38,8 +38,8 @@ slowDownRest = ipc.FunctionSet((4,0), (4,2), list(functions - currentFunc))
 # expInt.addSet(bigToAll)
 # expInt.addSet(littleToAll)
 # expInt.addSet(allLittle)
-expInt.addSet(speedUp)
-expInt.addSet(slowDownRest)
+# expInt.addSet(speedUp)
+# expInt.addSet(slowDownRest)
 
 # Arg parsing
 parser = argparse.ArgumentParser()
