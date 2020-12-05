@@ -37,6 +37,7 @@ def main(argv):
                                     continue
 
                                 pageloads[website] = PageLoad(website, load_start, load_start + load_duration)
+                    break   # only need to read websites from one result
 
 
     processes = {}

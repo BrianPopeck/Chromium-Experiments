@@ -6,8 +6,11 @@ import statistics
 def main(argv):
     # pageloads = {'wikipedia': [], 'facebook': [], 'amazon': []}
     pageloads = {}
+
+    root_dir = argv[1] if len(argv) > 1 else '.'
     
-    for root, dirs, files in os.walk('logs'):
+    # for root, dirs, files in os.walk(os.path.join(root_dir, 'logs')):
+    for root, dirs, files in os.walk(root_dir):
         for filename in files:
                 if filename == 'pageloads.log':
                     with open(os.path.join(root, filename), 'r') as f:
@@ -15,7 +18,7 @@ def main(argv):
                         for i, line in enumerate(lines):
                                 split = [text.rstrip(',')  for text in line.split(' ')]
                                 if split[0] == 'Pageload' or i < 2:
-                                    continue    # skip header line
+                                    continue    # skip header line AND the first page load result because for whatever reason the first page to be loaded takes significantly longer than it would have had it been loaded at any other position in the order
                                 if len(split) >= 4:
                                     load_time = split[2]
                                     # print('{}'.format(load_time))

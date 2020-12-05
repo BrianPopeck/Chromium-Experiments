@@ -26,8 +26,8 @@ print(ipc.paint)
 # littleToAll = ipc.FunctionSet((4,0),(4,4),ipc.css + ipc.html)
 
 allLittle = ipc.FunctionSet((4,0), (4,2), ipc.layout + ipc.paint + ipc.js + ipc.css + ipc.html)
-functions = {"ResumeParsingAfterYield", "ParseSheet","UpdateStyleAndLayoutTree", "ExecuteScriptInMainWorld","CallFunction"}
-currentFunc = {"ResumeParsingAfterYield"}
+functions = {"ResumeParsingAfterYield", "ParseSheet", "UpdateStyleAndLayoutTree", "ExecuteScriptInMainWorld","CallFunction"}
+currentFunc = {"ResumeParsingAfterYield", "ParseSheet", "UpdateStyleAndLayoutTree", "CallFunction"}
 speedUp = ipc.FunctionSet((0,2), (4,2), list(currentFunc))
 print('Slowdown: {}'.format(list(functions - currentFunc)))
 slowDownRest = ipc.FunctionSet((4,0), (4,2), list(functions - currentFunc))
@@ -93,7 +93,7 @@ os.environ['LOG_FILE'] = f"{expDirName}/data"
 os.environ['LD_LIBRARY_PATH'] = f"/usr/local/lib:{os.environ['LD_LIBRARY_PATH'] if 'LD_LIBRARY_PATH' in os.environ else ''}" # not sure why run-chrome has this
 
 # Chromium default flag options
-chromeFlags = "--no-zygote --no-sandbox --renderer-process-limit=1"
+chromeFlags = "--no-zygote --no-sandbox" # use renderer-process-limit=1 if you want to restrict # of processes (e.g. for testing perf)
 # TODO: experimental - having flags match 'run-chrome.sh'
 # chromeFlags = "--aggressive-cache-discard --disable-cache --disable-application-cache --disable-offline-load-stale-cache --disk-cache-size=0"
 debugPort = 9222
@@ -262,6 +262,21 @@ with open(mFilename, "r+b")  as mfile, \
             if retries <= 0:
                 printe(f"Error connecting to Chromium on port {debugPort}")
             elif len(findProcess("chrome")) < expectedProcesses: # missing procs means error
+                printv("chrome process unable to start properly", args.verbose)
+                try:
+                    shutil.rmtree(expDirName)
+                    printv(f"Deleted experiment directory {expDirName}",args.verbose)
+                except:
+                    printv(f"Unable to delete experiment directory {expDirName}",args.verbose)
+
+                try:
+                    printv("Closing chrome",args.verbose)
+                    chrome.Browser.close()
+                    time.sleep(3)
+                    process.kill()
+                except:
+                    pass
+
                 printe("chrome process unable to start properly")
             printv("Couldn't connect to chrome, retrying",args.verbose)
             time.sleep(2)
@@ -398,9 +413,11 @@ with open(pageLoadLog,'w') as pageLoadsLog:
         pageLoadsLog.write("\n")
 
 if not args.no_logs:
-    printv("Running summarize.sh on experiment",args.verbose)
-    os.environ['EXP_DATALOG_DIR'] = expDirName
-    subprocess.run(['./src/scripts/summarize.sh']) # Run datamash summary script
+    # TODO: fix breaking change to datamash input format
+    pass
+    # printv("Running summarize.sh on experiment",args.verbose)
+    # os.environ['EXP_DATALOG_DIR'] = expDirName
+    # subprocess.run(['./src/scripts/summarize.sh']) # Run datamash summary script
 
 # Example graph generation
 if args.plot_graphs and not args.no_logs:
