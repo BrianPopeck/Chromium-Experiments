@@ -1,0 +1,38 @@
+		g3log created log at: Fri Dec 04 21:09:35 2020
+		LOG format: [YYYY/MM/DD hh:mm:ss uuu* LEVEL FILE->FUNCTION:LINE] messagen
+		(uuu*: microseconds fractions of the seconds value)
+
+2020/12/04 21:09:35 581170	INFO [experimenter.cc->experiment_fentry:301]	2392916:	UpdateStyleAndLayoutTree	11110000	0
+2020/12/04 21:09:35 601647	INFO [experimenter.cc->experiment_fentry:301]	2392916:	ParseSheet	00000110	5
+2020/12/04 21:09:35 815401	INFO [experimenter.cc->experiment_fexit:326]	2392916:	ParseSheet	11110011	0	213.037
+2020/12/04 21:09:35 825635	INFO [experimenter.cc->experiment_fentry:301]	2392916:	ParseSheet	00000110	5
+2020/12/04 21:09:35 828225	INFO [experimenter.cc->experiment_fexit:326]	2392916:	ParseSheet	11110011	1	2.33893
+2020/12/04 21:09:36 011440	INFO [experimenter.cc->experiment_fexit:326]	2392916:	UpdateStyleAndLayoutTree	11111100	1	429.629
+2020/12/04 21:09:36 011999	INFO [experimenter.cc->experiment_fentry:301]	2392916:	UpdateStyleAndLayoutTree	11110000	1
+2020/12/04 21:09:36 012104	INFO [experimenter.cc->experiment_fexit:326]	2392916:	UpdateStyleAndLayoutTree	11111100	1	0.0452099
+2020/12/04 21:09:36 669677	INFO [experimenter.cc->experiment_fentry:301]	2392916:	ExecuteScriptInMainWorld	00000110	5
+2020/12/04 21:09:36 671770	INFO [experimenter.cc->experiment_fexit:326]	2392916:	ExecuteScriptInMainWorld	11110011	2	1.89792
+2020/12/04 21:09:36 678781	INFO [experimenter.cc->experiment_fentry:301]	2392916:	ExecuteScriptInMainWorld	00000110	5
+2020/12/04 21:09:36 679828	INFO [experimenter.cc->experiment_fexit:326]	2392916:	ExecuteScriptInMainWorld	11110011	3	0.823102
+2020/12/04 21:09:36 692013	INFO [experimenter.cc->experiment_fentry:301]	2392916:	ResumeParsingAfterYield	11110000	3
+2020/12/04 21:09:36 822831	INFO [experimenter.cc->experiment_fexit:326]	2392916:	ResumeParsingAfterYield	11111100	3	130.639
+2020/12/04 21:09:36 847081	INFO [experimenter.cc->experiment_fentry:301]	2392916:	UpdateStyleAndLayoutTree	11110000	3
+2020/12/04 21:09:36 856494	INFO [experimenter.cc->experiment_fexit:326]	2392916:	UpdateStyleAndLayoutTree	11111100	3	9.22358
+2020/12/04 21:09:36 856947	INFO [experimenter.cc->experiment_fentry:301]	2392916:	UpdateStyleAndLayoutTree	11110000	3
+2020/12/04 21:09:36 857046	INFO [experimenter.cc->experiment_fexit:326]	2392916:	UpdateStyleAndLayoutTree	11111100	3	0.0495853
+2020/12/04 21:09:36 973641	INFO [experimenter.cc->experiment_fentry:301]	2392916:	ParseSheet	00000110	5
+2020/12/04 21:09:36 983842	INFO [experimenter.cc->experiment_fexit:326]	2392916:	ParseSheet	11110011	0	9.98659
+2020/12/04 21:09:37 245642	INFO [experimenter.cc->experiment_fentry:301]	2392916:	ParseSheet	00000110	5
+2020/12/04 21:09:37 247636	INFO [experimenter.cc->experiment_fexit:326]	2392916:	ParseSheet	11110011	1	1.79991
+2020/12/04 21:09:37 264903	INFO [experimenter.cc->experiment_fentry:301]	2392916:	ParseSheet	00000110	5
+2020/12/04 21:09:37 336892	INFO [experimenter.cc->experiment_fexit:326]	2392916:	ParseSheet	11110011	2	71.7796
+2020/12/04 21:09:37 342844	INFO [experimenter.cc->experiment_fentry:301]	2392916:	UpdateStyleAndLayoutTree	11110000	2
+2020/12/04 21:09:37 375180	INFO [experimenter.cc->experiment_fexit:326]	2392916:	UpdateStyleAndLayoutTree	11111100	2	32.1555
+2020/12/04 21:09:37 398028	INFO [experimenter.cc->experiment_fentry:301]	2392916:	ParseSheet	00000110	5
+2020/12/04 21:09:37 422280	INFO [experimenter.cc->experiment_fexit:326]	2392916:	ParseSheet	11110011	3	24.0525
+2020/12/04 21:09:37 438822	INFO [experimenter.cc->experiment_fentry:301]	2392916:	ParseSheet	00000110	5
+2020/12/04 21:09:37 475756	INFO [experimenter.cc->experiment_fexit:326]	2392916:	ParseSheet	11110011	0	36.7062
+2020/12/04 21:09:37 491698	INFO [experimenter.cc->experiment_fentry:301]	2392916:	ParseSheet	00000110	5
+2020/12/04 21:09:37 492213	INFO [experimenter.cc->experiment_fexit:326]	2392916:	ParseSheet	11110011	1	0.351758
+2020/12/04 21:09:37 536624	INFO [experimenter.cc->experiment_fentry:301]	2392916:	ParseSheet	00000110	5
+2020/12/04 21:09:37 536902	INFO [experimenter.cc->experiment_fexit:326]	2392916:	ParseSheet	11110011	2	0.109378

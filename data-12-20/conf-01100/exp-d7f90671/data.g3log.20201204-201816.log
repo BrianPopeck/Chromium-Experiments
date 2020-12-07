@@ -1,0 +1,38 @@
+		g3log created log at: Fri Dec 04 20:18:19 2020
+		LOG format: [YYYY/MM/DD hh:mm:ss uuu* LEVEL FILE->FUNCTION:LINE] messagen
+		(uuu*: microseconds fractions of the seconds value)
+
+2020/12/04 20:18:19 017985	INFO [experimenter.cc->experiment_fentry:301]	2388515:	UpdateStyleAndLayoutTree	00001001	4
+2020/12/04 20:18:19 023103	INFO [experimenter.cc->experiment_fentry:301]	2388515:	ParseSheet	00001001	4
+2020/12/04 20:18:19 342622	INFO [experimenter.cc->experiment_fexit:326]	2388515:	ParseSheet	11110011	0	318.02
+2020/12/04 20:18:19 357654	INFO [experimenter.cc->experiment_fentry:301]	2388515:	ParseSheet	00001001	4
+2020/12/04 20:18:19 360532	INFO [experimenter.cc->experiment_fexit:326]	2388515:	ParseSheet	11110011	1	2.44947
+2020/12/04 20:18:19 562657	INFO [experimenter.cc->experiment_fexit:326]	2388515:	UpdateStyleAndLayoutTree	11110011	1	543.758
+2020/12/04 20:18:19 565446	INFO [experimenter.cc->experiment_fentry:301]	2388515:	UpdateStyleAndLayoutTree	00001001	4
+2020/12/04 20:18:19 565780	INFO [experimenter.cc->experiment_fexit:326]	2388515:	UpdateStyleAndLayoutTree	11110011	2	0.0478354
+2020/12/04 20:18:20 197781	INFO [experimenter.cc->experiment_fentry:301]	2388515:	ResumeParsingAfterYield	11110000	2
+2020/12/04 20:18:20 327877	INFO [experimenter.cc->experiment_fexit:326]	2388515:	ResumeParsingAfterYield	11110011	2	129.93
+2020/12/04 20:18:20 358944	INFO [experimenter.cc->experiment_fentry:301]	2388515:	ExecuteScriptInMainWorld	11110000	2
+2020/12/04 20:18:20 362553	INFO [experimenter.cc->experiment_fexit:326]	2388515:	ExecuteScriptInMainWorld	11110011	2	3.45195
+2020/12/04 20:18:20 365036	INFO [experimenter.cc->experiment_fentry:301]	2388515:	ExecuteScriptInMainWorld	11110000	2
+2020/12/04 20:18:20 366618	INFO [experimenter.cc->experiment_fexit:326]	2388515:	ExecuteScriptInMainWorld	11110011	2	1.42978
+2020/12/04 20:18:20 397657	INFO [experimenter.cc->experiment_fentry:301]	2388515:	UpdateStyleAndLayoutTree	00001001	4
+2020/12/04 20:18:20 404790	INFO [experimenter.cc->experiment_fexit:326]	2388515:	UpdateStyleAndLayoutTree	11110011	3	6.81319
+2020/12/04 20:18:20 406434	INFO [experimenter.cc->experiment_fentry:301]	2388515:	UpdateStyleAndLayoutTree	00001001	4
+2020/12/04 20:18:20 406735	INFO [experimenter.cc->experiment_fexit:326]	2388515:	UpdateStyleAndLayoutTree	11110011	0	0.0510435
+2020/12/04 20:18:20 591025	INFO [experimenter.cc->experiment_fentry:301]	2388515:	ParseSheet	00001001	4
+2020/12/04 20:18:20 621948	INFO [experimenter.cc->experiment_fexit:326]	2388515:	ParseSheet	11110011	1	28.6992
+2020/12/04 20:18:20 781734	INFO [experimenter.cc->experiment_fentry:301]	2388515:	ParseSheet	00001001	4
+2020/12/04 20:18:20 786353	INFO [experimenter.cc->experiment_fexit:326]	2388515:	ParseSheet	11110011	2	4.30247
+2020/12/04 20:18:20 802306	INFO [experimenter.cc->experiment_fentry:301]	2388515:	ParseSheet	00001001	4
+2020/12/04 20:18:20 934722	INFO [experimenter.cc->experiment_fexit:326]	2388515:	ParseSheet	11110011	3	132.081
+2020/12/04 20:18:20 957650	INFO [experimenter.cc->experiment_fentry:301]	2388515:	ParseSheet	00001001	4
+2020/12/04 20:18:20 978800	INFO [experimenter.cc->experiment_fexit:326]	2388515:	ParseSheet	11110011	0	20.822
+2020/12/04 20:18:20 997716	INFO [experimenter.cc->experiment_fentry:301]	2388515:	UpdateStyleAndLayoutTree	00001001	4
+2020/12/04 20:18:21 089010	INFO [experimenter.cc->experiment_fexit:326]	2388515:	UpdateStyleAndLayoutTree	11110011	1	90.9623
+2020/12/04 20:18:21 121657	INFO [experimenter.cc->experiment_fentry:301]	2388515:	ParseSheet	00001001	4
+2020/12/04 20:18:21 122356	INFO [experimenter.cc->experiment_fexit:326]	2388515:	ParseSheet	11110011	2	0.383842
+2020/12/04 20:18:21 145660	INFO [experimenter.cc->experiment_fentry:301]	2388515:	ParseSheet	00001001	4
+2020/12/04 20:18:21 163218	INFO [experimenter.cc->experiment_fexit:326]	2388515:	ParseSheet	11110011	3	17.2522
+2020/12/04 20:18:21 249961	INFO [experimenter.cc->experiment_fentry:301]	2388515:	ParseSheet	00001001	4
+2020/12/04 20:18:21 422895	INFO [experimenter.cc->experiment_fexit:326]	2388515:	ParseSheet	11110011	0	172.591

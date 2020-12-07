@@ -1,0 +1,16 @@
+		g3log created log at: Fri Dec 04 18:09:21 2020
+		LOG format: [YYYY/MM/DD hh:mm:ss uuu* LEVEL FILE->FUNCTION:LINE] messagen
+		(uuu*: microseconds fractions of the seconds value)
+
+2020/12/04 18:09:21 348784	INFO [experimenter.cc->experiment_fentry:301]	2378307:	ParseSheet	11110000	1
+2020/12/04 18:09:21 580786	INFO [experimenter.cc->experiment_fexit:326]	2378307:	ParseSheet	11111010	1	230.91
+2020/12/04 18:09:21 582036	INFO [experimenter.cc->experiment_fentry:301]	2378307:	ParseSheet	11110000	1
+2020/12/04 18:09:21 585629	INFO [experimenter.cc->experiment_fexit:326]	2378307:	ParseSheet	11111010	1	3.37815
+2020/12/04 18:09:21 707671	INFO [experimenter.cc->experiment_fentry:301]	2378307:	UpdateStyleAndLayoutTree	11110000	0
+2020/12/04 18:09:21 708377	INFO [experimenter.cc->experiment_fexit:326]	2378307:	UpdateStyleAndLayoutTree	11111010	0	0.543678
+2020/12/04 18:09:21 839922	INFO [experimenter.cc->experiment_fentry:301]	2378307:	ResumeParsingAfterYield	00001010	4
+2020/12/04 18:09:21 848767	INFO [experimenter.cc->experiment_fentry:301]	2378307:	ParseSheet	11110000	0
+2020/12/04 18:09:21 871523	INFO [experimenter.cc->experiment_fexit:326]	2378307:	ParseSheet	11111010	0	22.5857
+2020/12/04 18:09:21 873738	INFO [experimenter.cc->experiment_fentry:301]	2378307:	ParseSheet	11110000	1
+2020/12/04 18:09:21 963860	INFO [experimenter.cc->experiment_fexit:326]	2378307:	ParseSheet	11111010	1	89.947
+2020/12/04 18:09:21 977755	INFO [experimenter.cc->experiment_fentry:301]	2378307:	ParseSheet	11110000	2

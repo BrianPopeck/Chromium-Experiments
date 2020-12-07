@@ -1,0 +1,25 @@
+		g3log created log at: Fri Dec 04 08:28:45 2020
+		LOG format: [YYYY/MM/DD hh:mm:ss uuu* LEVEL FILE->FUNCTION:LINE] messagen
+		(uuu*: microseconds fractions of the seconds value)
+
+2020/12/04 08:28:45 329261	INFO [experimenter.cc->experiment_fentry:301]	2362423:	ParseSheet	11110000	1
+2020/12/04 08:28:45 559893	INFO [experimenter.cc->experiment_fexit:326]	2362423:	ParseSheet	11110110	1	229.593
+2020/12/04 08:28:45 560781	INFO [experimenter.cc->experiment_fentry:301]	2362423:	ParseSheet	11110000	3
+2020/12/04 08:28:45 563958	INFO [experimenter.cc->experiment_fexit:326]	2362423:	ParseSheet	11110110	3	3.03282
+2020/12/04 08:28:45 750335	INFO [experimenter.cc->experiment_fentry:301]	2362423:	UpdateStyleAndLayoutTree	11110000	2
+2020/12/04 08:28:45 750899	INFO [experimenter.cc->experiment_fexit:326]	2362423:	UpdateStyleAndLayoutTree	11110110	2	0.446842
+2020/12/04 08:28:45 934479	INFO [experimenter.cc->experiment_fentry:301]	2362423:	ResumeParsingAfterYield	11110000	1
+2020/12/04 08:28:45 945408	INFO [experimenter.cc->experiment_fentry:301]	2362423:	ParseSheet	11110000	1
+2020/12/04 08:28:45 968457	INFO [experimenter.cc->experiment_fexit:326]	2362423:	ParseSheet	11110110	1	22.8602
+2020/12/04 08:28:45 971641	INFO [experimenter.cc->experiment_fentry:301]	2362423:	ParseSheet	11110000	1
+2020/12/04 08:28:46 058903	INFO [experimenter.cc->experiment_fexit:326]	2362423:	ParseSheet	11110110	1	87.0732
+2020/12/04 08:28:46 063846	INFO [experimenter.cc->experiment_fentry:301]	2362423:	ParseSheet	11110000	1
+2020/12/04 08:28:46 189856	INFO [experimenter.cc->experiment_fexit:326]	2362423:	ParseSheet	11110110	1	125.832
+2020/12/04 08:28:46 197670	INFO [experimenter.cc->experiment_fentry:301]	2362423:	ExecuteScriptInMainWorld	00001010	4
+2020/12/04 08:28:46 201106	INFO [experimenter.cc->experiment_fexit:326]	2362423:	ExecuteScriptInMainWorld	11111001	4	3.32887
+2020/12/04 08:28:46 203547	INFO [experimenter.cc->experiment_fentry:301]	2362423:	ExecuteScriptInMainWorld	00001010	4
+2020/12/04 08:28:46 205859	INFO [experimenter.cc->experiment_fexit:326]	2362423:	ExecuteScriptInMainWorld	11111001	4	2.20505
+2020/12/04 08:28:46 225654	INFO [experimenter.cc->experiment_fentry:301]	2362423:	ExecuteScriptInMainWorld	00001010	4
+2020/12/04 08:28:46 252836	INFO [experimenter.cc->experiment_fexit:326]	2362423:	ExecuteScriptInMainWorld	11111001	4	27.062
+2020/12/04 08:28:46 255776	INFO [experimenter.cc->experiment_fentry:301]	2362423:	ExecuteScriptInMainWorld	00001010	4
+2020/12/04 08:28:46 279046	INFO [experimenter.cc->experiment_fexit:326]	2362423:	ExecuteScriptInMainWorld	11111001	4	23.1583

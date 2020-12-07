@@ -1,0 +1,25 @@
+		g3log created log at: Fri Dec 04 19:42:50 2020
+		LOG format: [YYYY/MM/DD hh:mm:ss uuu* LEVEL FILE->FUNCTION:LINE] messagen
+		(uuu*: microseconds fractions of the seconds value)
+
+2020/12/04 19:42:50 202406	INFO [experimenter.cc->experiment_fentry:301]	2385640:	ParseSheet	00001010	4
+2020/12/04 19:42:50 317309	INFO [experimenter.cc->experiment_fexit:326]	2385640:	ParseSheet	11111001	4	113.929
+2020/12/04 19:42:50 317959	INFO [experimenter.cc->experiment_fentry:301]	2385640:	ParseSheet	00001010	4
+2020/12/04 19:42:50 320427	INFO [experimenter.cc->experiment_fexit:326]	2385640:	ParseSheet	11111001	4	2.36197
+2020/12/04 19:42:50 496979	INFO [experimenter.cc->experiment_fentry:301]	2385640:	UpdateStyleAndLayoutTree	00001010	4
+2020/12/04 19:42:50 497259	INFO [experimenter.cc->experiment_fexit:326]	2385640:	UpdateStyleAndLayoutTree	11111001	4	0.203296
+2020/12/04 19:42:50 646170	INFO [experimenter.cc->experiment_fentry:301]	2385640:	ResumeParsingAfterYield	11110000	1
+2020/12/04 19:42:50 659909	INFO [experimenter.cc->experiment_fentry:301]	2385640:	ParseSheet	00001010	4
+2020/12/04 19:42:50 675314	INFO [experimenter.cc->experiment_fexit:326]	2385640:	ParseSheet	11111001	4	15.3143
+2020/12/04 19:42:50 676985	INFO [experimenter.cc->experiment_fentry:301]	2385640:	ParseSheet	00001010	4
+2020/12/04 19:42:50 735336	INFO [experimenter.cc->experiment_fexit:326]	2385640:	ParseSheet	11111001	4	58.2442
+2020/12/04 19:42:50 738159	INFO [experimenter.cc->experiment_fentry:301]	2385640:	ParseSheet	00001010	4
+2020/12/04 19:42:50 829346	INFO [experimenter.cc->experiment_fexit:326]	2385640:	ParseSheet	11111001	4	91.0828
+2020/12/04 19:42:50 832630	INFO [experimenter.cc->experiment_fentry:301]	2385640:	ExecuteScriptInMainWorld	11110000	1
+2020/12/04 19:42:50 838788	INFO [experimenter.cc->experiment_fexit:326]	2385640:	ExecuteScriptInMainWorld	11110011	1	6.00438
+2020/12/04 19:42:50 842489	INFO [experimenter.cc->experiment_fentry:301]	2385640:	ExecuteScriptInMainWorld	11110000	1
+2020/12/04 19:42:50 846849	INFO [experimenter.cc->experiment_fexit:326]	2385640:	ExecuteScriptInMainWorld	11110011	1	4.20388
+2020/12/04 19:42:50 850898	INFO [experimenter.cc->experiment_fentry:301]	2385640:	ExecuteScriptInMainWorld	11110000	1
+2020/12/04 19:42:50 878118	INFO [experimenter.cc->experiment_fexit:326]	2385640:	ExecuteScriptInMainWorld	11110011	1	27.0436
+2020/12/04 19:42:50 882282	INFO [experimenter.cc->experiment_fentry:301]	2385640:	ExecuteScriptInMainWorld	11110000	1
+2020/12/04 19:42:50 925082	INFO [experimenter.cc->experiment_fexit:326]	2385640:	ExecuteScriptInMainWorld	11110011	1	42.6277

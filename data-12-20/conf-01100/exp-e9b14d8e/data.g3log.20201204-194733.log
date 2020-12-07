@@ -1,0 +1,10 @@
+		g3log created log at: Fri Dec 04 19:47:33 2020
+		LOG format: [YYYY/MM/DD hh:mm:ss uuu* LEVEL FILE->FUNCTION:LINE] messagen
+		(uuu*: microseconds fractions of the seconds value)
+
+2020/12/04 19:47:33 993774	INFO [experimenter.cc->experiment_fentry:301]	2386007:	ParseSheet	00000011	5
+2020/12/04 19:47:34 268303	INFO [experimenter.cc->experiment_fexit:326]	2386007:	ParseSheet	11110011	1	273.825
+2020/12/04 19:47:34 269324	INFO [experimenter.cc->experiment_fentry:301]	2386007:	ParseSheet	00000011	1
+2020/12/04 19:47:34 272522	INFO [experimenter.cc->experiment_fexit:326]	2386007:	ParseSheet	11110011	1	3.05528
+2020/12/04 19:47:34 457749	INFO [experimenter.cc->experiment_fentry:301]	2386007:	UpdateStyleAndLayoutTree	00000011	1
+2020/12/04 19:47:34 458347	INFO [experimenter.cc->experiment_fexit:326]	2386007:	UpdateStyleAndLayoutTree	11110011	1	0.480386

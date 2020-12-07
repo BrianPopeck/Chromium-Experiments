@@ -1,0 +1,12 @@
+Pageload ID, navigationStart Timestamp, Pageload Duration, Website
+c1e5832b, 1607155573876.0637, 13235.447314, http://tucunare.cs.pitt.edu:8080/amazon/www.amazon.com/index.html
+f795d7b2, 1607155592161.9624, 11131.398276, http://tucunare.cs.pitt.edu:8080/msn/www.msn.com/index.html
+8ab6187d, 1607155608313.7866, 15334.127817, http://tucunare.cs.pitt.edu:8080/bbc/www.bbc.co.uk/index.html
+89f610fa, 1607155628669.7646, 11654.273592, http://tucunare.cs.pitt.edu:8080/twitter/twitter.com/index.html
+4e0c48d4, 1607155645350.3909, 12627.390044, http://tucunare.cs.pitt.edu:8080/youtube/www.youtube.com/watch07c3.html
+b20b71c0, 1607155663001.7124, 21178.55057, http://tucunare.cs.pitt.edu:8080/cnn/www.cnn.com/index.html
+3b952bea, 1607155689209.111, 13047.915131, http://tucunare.cs.pitt.edu:8080/slashdot/slashdot.org/index.html
+1b8f5f56, 1607155707285.0803, 6995.709598, http://tucunare.cs.pitt.edu:8080/craigslist/newyork.craigslist.org/index.html
+a0a90675, 1607155719306.0232, 47191.270978, http://tucunare.cs.pitt.edu:8080/espn/espn.go.com/index.html
+02832898, 1607155771544.032, 10465.999979, http://tucunare.cs.pitt.edu:8080/ebay/www.ebay.com/index.html
+c6c68c79, 1607155787055.2583, 2146.500042, http://tucunare.cs.pitt.edu:8080/google/www.google.com/index.html

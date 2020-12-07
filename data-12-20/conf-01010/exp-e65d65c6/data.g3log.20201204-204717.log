@@ -1,0 +1,8 @@
+		g3log created log at: Fri Dec 04 20:47:18 2020
+		LOG format: [YYYY/MM/DD hh:mm:ss uuu* LEVEL FILE->FUNCTION:LINE] messagen
+		(uuu*: microseconds fractions of the seconds value)
+
+2020/12/04 20:47:18 600321	INFO [experimenter.cc->experiment_fentry:301]	2391103:	ParseSheet	00001001	4
+2020/12/04 20:47:18 868954	INFO [experimenter.cc->experiment_fexit:326]	2391103:	ParseSheet	11111001	4	268.264
+2020/12/04 20:47:18 869865	INFO [experimenter.cc->experiment_fentry:301]	2391103:	ParseSheet	00001001	4
+2020/12/04 20:47:18 873254	INFO [experimenter.cc->experiment_fexit:326]	2391103:	ParseSheet	11111001	4	3.26849

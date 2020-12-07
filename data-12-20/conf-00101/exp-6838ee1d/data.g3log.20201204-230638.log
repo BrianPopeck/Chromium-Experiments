@@ -1,0 +1,48 @@
+		g3log created log at: Fri Dec 04 23:06:39 2020
+		LOG format: [YYYY/MM/DD hh:mm:ss uuu* LEVEL FILE->FUNCTION:LINE] messagen
+		(uuu*: microseconds fractions of the seconds value)
+
+2020/12/04 23:06:39 210672	INFO [experimenter.cc->experiment_fentry:301]	2401928:	ParseSheet	11110000	0
+2020/12/04 23:06:39 344157	INFO [experimenter.cc->experiment_fexit:326]	2401928:	ParseSheet	11111010	0	132.681
+2020/12/04 23:06:39 345173	INFO [experimenter.cc->experiment_fentry:301]	2401928:	ParseSheet	11110000	1
+2020/12/04 23:06:39 348304	INFO [experimenter.cc->experiment_fexit:326]	2401928:	ParseSheet	11111010	1	2.9914
+2020/12/04 23:06:39 536475	INFO [experimenter.cc->experiment_fentry:301]	2401928:	UpdateStyleAndLayoutTree	00001001	4
+2020/12/04 23:06:39 536901	INFO [experimenter.cc->experiment_fexit:326]	2401928:	UpdateStyleAndLayoutTree	11111001	4	0.235089
+2020/12/04 23:06:39 749391	INFO [experimenter.cc->experiment_fentry:301]	2401928:	ResumeParsingAfterYield	11110000	0
+2020/12/04 23:06:39 760962	INFO [experimenter.cc->experiment_fentry:301]	2401928:	ParseSheet	11110000	0
+2020/12/04 23:06:39 783184	INFO [experimenter.cc->experiment_fexit:326]	2401928:	ParseSheet	11111010	0	22.0464
+2020/12/04 23:06:39 786013	INFO [experimenter.cc->experiment_fentry:301]	2401928:	ParseSheet	11110000	1
+2020/12/04 23:06:39 866011	INFO [experimenter.cc->experiment_fexit:326]	2401928:	ParseSheet	11111010	1	79.863
+2020/12/04 23:06:39 870688	INFO [experimenter.cc->experiment_fentry:301]	2401928:	ParseSheet	11110000	1
+2020/12/04 23:06:39 972865	INFO [experimenter.cc->experiment_fexit:326]	2401928:	ParseSheet	11111010	1	102.017
+2020/12/04 23:06:39 977976	INFO [experimenter.cc->experiment_fentry:301]	2401928:	ExecuteScriptInMainWorld	11110000	1
+2020/12/04 23:06:39 983273	INFO [experimenter.cc->experiment_fexit:326]	2401928:	ExecuteScriptInMainWorld	11111010	1	5.15357
+2020/12/04 23:06:39 986473	INFO [experimenter.cc->experiment_fentry:301]	2401928:	ExecuteScriptInMainWorld	11110000	1
+2020/12/04 23:06:39 990055	INFO [experimenter.cc->experiment_fexit:326]	2401928:	ExecuteScriptInMainWorld	11111010	1	3.44029
+2020/12/04 23:06:39 993154	INFO [experimenter.cc->experiment_fentry:301]	2401928:	ExecuteScriptInMainWorld	11110000	1
+2020/12/04 23:06:40 041445	INFO [experimenter.cc->experiment_fexit:326]	2401928:	ExecuteScriptInMainWorld	11111010	1	48.0835
+2020/12/04 23:06:40 048761	INFO [experimenter.cc->experiment_fentry:301]	2401928:	ExecuteScriptInMainWorld	11110000	1
+2020/12/04 23:06:40 133665	INFO [experimenter.cc->experiment_fexit:326]	2401928:	ExecuteScriptInMainWorld	11111010	1	84.6514
+2020/12/04 23:06:40 242956	INFO [experimenter.cc->experiment_fexit:326]	2401928:	ResumeParsingAfterYield	11111010	4	493.413
+2020/12/04 23:06:40 291506	INFO [experimenter.cc->experiment_fentry:301]	2401928:	UpdateStyleAndLayoutTree	00001001	4
+2020/12/04 23:06:40 360836	INFO [experimenter.cc->experiment_fexit:326]	2401928:	UpdateStyleAndLayoutTree	11111001	4	69.2196
+2020/12/04 23:06:40 361150	INFO [experimenter.cc->experiment_fentry:301]	2401928:	UpdateStyleAndLayoutTree	00001001	4
+2020/12/04 23:06:40 361259	INFO [experimenter.cc->experiment_fexit:326]	2401928:	UpdateStyleAndLayoutTree	11111001	4	0.0746689
+2020/12/04 23:06:40 395925	INFO [experimenter.cc->experiment_fentry:301]	2401928:	ResumeParsingAfterYield	11110000	1
+2020/12/04 23:06:40 398411	INFO [experimenter.cc->experiment_fentry:301]	2401928:	ExecuteScriptInMainWorld	11110000	1
+2020/12/04 23:06:40 404029	INFO [experimenter.cc->experiment_fexit:326]	2401928:	ExecuteScriptInMainWorld	11111010	1	5.45691
+2020/12/04 23:06:40 405983	INFO [experimenter.cc->experiment_fentry:301]	2401928:	ExecuteScriptInMainWorld	11110000	2
+2020/12/04 23:06:40 408295	INFO [experimenter.cc->experiment_fexit:326]	2401928:	ExecuteScriptInMainWorld	11111010	2	2.19513
+2020/12/04 23:06:40 410271	INFO [experimenter.cc->experiment_fentry:301]	2401928:	ExecuteScriptInMainWorld	11110000	3
+2020/12/04 23:06:40 416339	INFO [experimenter.cc->experiment_fexit:326]	2401928:	ExecuteScriptInMainWorld	11111010	3	5.94343
+2020/12/04 23:06:40 418242	INFO [experimenter.cc->experiment_fentry:301]	2401928:	ExecuteScriptInMainWorld	11110000	0
+2020/12/04 23:06:40 604166	INFO [experimenter.cc->experiment_fexit:326]	2401928:	ExecuteScriptInMainWorld	11111010	0	185.777
+2020/12/04 23:06:40 608837	INFO [experimenter.cc->experiment_fentry:301]	2401928:	CallFunction	00001001	4
+2020/12/04 23:06:40 614741	INFO [experimenter.cc->experiment_fexit:326]	2401928:	CallFunction	11111001	4	5.83521
+2020/12/04 23:06:40 615062	INFO [experimenter.cc->experiment_fentry:301]	2401928:	CallFunction	00001001	4
+2020/12/04 23:06:40 617611	INFO [experimenter.cc->experiment_fexit:326]	2401928:	CallFunction	11111001	4	2.45822
+2020/12/04 23:06:40 648843	INFO [experimenter.cc->experiment_fexit:326]	2401928:	ResumeParsingAfterYield	11111010	4	252.801
+2020/12/04 23:06:40 653914	INFO [experimenter.cc->experiment_fentry:301]	2401928:	UpdateStyleAndLayoutTree	00001001	4
+2020/12/04 23:06:40 654051	INFO [experimenter.cc->experiment_fexit:326]	2401928:	UpdateStyleAndLayoutTree	11111001	4	0.0498762
+2020/12/04 23:06:40 654280	INFO [experimenter.cc->experiment_fentry:301]	2401928:	UpdateStyleAndLayoutTree	00001001	4
+2020/12/04 23:06:40 654384	INFO [experimenter.cc->experiment_fexit:326]	2401928:	UpdateStyleAndLayoutTree	11111001	4	0.0373344
