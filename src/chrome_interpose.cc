@@ -26,7 +26,6 @@ int my_main(int argc, char **argv, char **env) {
 
    if (argv != nullptr && argc > 1 && argv[1] != nullptr) {
        cpu_set_t mask;
-       set_affinity_big(&mask);
        
        if (strncmp(argv[1],"--type=renderer",15) == 0) { // renderer process
            experiment_init(argv[0]); // set up logger, register handlers
